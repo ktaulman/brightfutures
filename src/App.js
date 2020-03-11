@@ -37,7 +37,7 @@ function App(){
                 type='password' 
                 onChange={(e)=>setPassword(e.target.value)}
             ></input>
-            {password}
+           
             <button 
                 onClick={()=>{
                     if(password===password1){
