@@ -15,8 +15,11 @@ import Logo from './components/Logo/Logo';
 import DropDown from './components/DropDown/DropDown';
 import NavigationLinks from './components/NavigationLinks/NavigationLinks'
 
+const password1='123dance';
 
 function App(){
+    const [password,setPassword]=useState(null)
+    const [isCorrectPassword,setIsCorrectPassword]=useState(true)
     const[screenWidth,setScreenWidth]=useState(window.innerWidth)
     //window resize effect 
     useEffect(()=>{
@@ -25,7 +28,20 @@ function App(){
         }
         window.addEventListener('resize',handleResize)
     })
-    
+    if(!isCorrectPassword){
+        return(
+        <div>
+            <h1>Enter Unlock</h1>
+            <input type='text' onChange={(e)=>setPassword(e.target.value)}>password</input>
+            <submit onClick={()=>{
+                if(password===password1){
+                    setIsCorrectPassword(true)
+                }
+            }}>Submit</submit>
+        </div>
+        )
+    }
+    else{
     return(
        <>
             <Header>
@@ -61,6 +77,6 @@ function App(){
                 {/* <NavigationLinks row noBackground style={{fontSize:'16px',color:'#00000'}}/> */}
             </Footer>
     </>
-    )
+    )}
 }
 export default App;
