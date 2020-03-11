@@ -100,7 +100,7 @@ return(
                     [
                         {
                             backgroundColor:'#7E62AC',
-                            label:'I want to Donate',
+                            label:'Donate',
                             component:<TextSection
                                 label='How to Donate'
                                 body='See below that our Strip payment systtem can take cash check and other forms of materials.'
@@ -109,7 +109,7 @@ return(
                         },
                         {
                             backgroundColor:"#AC9562",
-                            label:'I want to register for an Event',
+                            label:'Events',
                             component:<TextSection
                                 label="Upcoming Events"
                                 body="We have our upcoming Summer Camp from June 6-10, 2020."
@@ -118,7 +118,7 @@ return(
                         },
                         {
                             backgroundColor:"#AC6F62",
-                            label:'I want to Volunteer',
+                            label:'Volunteer',
                             component:<TextSection
                                 label='How to Volunteer'
                                 body='We would like to have as many volunteers for our upcoming events as possible. Sign up today to hear frrom our team. '

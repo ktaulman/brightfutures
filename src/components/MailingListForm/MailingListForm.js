@@ -17,7 +17,14 @@ export default function MailingListForm ({label}){
                 setError(null)
             },2000)
         }else{
-        setIsComplete(true);}
+        //set state to show completed form
+        setIsComplete(true)
+        //display for 3 seconds and then remove the child node
+        setTimeout(function(){
+            const msg=document.getElementById("mailingListThankYou");
+            msg.parentNode.removeChild(msg)
+        },2000)
+        ;}
     }
     if(!isComplete){
         return(  
@@ -53,15 +60,13 @@ export default function MailingListForm ({label}){
             </div>
         )
     }
-    else{
-        setTimeout(function(
-            
-        ){
+
             return(
+                <>
                 <p id="mailingListThankYou"> Thank You for Signing Up</p>
+                </>
             )
-        },2000)
         
         
-    }
+
 }
