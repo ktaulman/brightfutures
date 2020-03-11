@@ -25,6 +25,7 @@ export default function DropDownMenu({buttonsArray}){
 
                 return(
                     <button
+                        key={"button"+index}
                         className='DropDownMenu__button'
                         style={{
                             backgroundColor:button.backgroundColor||"#7E62AC", 

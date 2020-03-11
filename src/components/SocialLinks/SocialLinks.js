@@ -11,9 +11,11 @@ export default function SocialLinks({label,children,iconsArray, svgColor}){
                     className='SocialLinks__label'
                 >{label}</h2>
                 <div className="SocialLinks__iconsContainer">
-                    {iconsArray.map((icon)=>{
+                    {iconsArray.map((icon,index)=>{
                        return( 
-                                <a href={icon.href} target="_blank" rel="noopener noreferrer">
+                                <a 
+                                key={'a'+index}
+                                href={icon.href} target="_blank" rel="noopener noreferrer">
                                   <img  className='SocialLinks__img'src={icon.svg} alt=''/>
                                 </a>
                            )

@@ -1,6 +1,13 @@
 import React,{useState} from 'react';
 import './MailingListForm.css'
 
+function Form({children}){
+    return(
+        <form className='MailingListForm'>
+            {children}
+        </form>
+    )
+}
 
 export default function MailingListForm ({label}){
     const [isComplete,setIsComplete]=useState(false);
@@ -21,19 +28,17 @@ export default function MailingListForm ({label}){
     }
     if(!isComplete){
         return(  
-            <form 
-                className='MailingListForm'
-            >
+            <Form>
                 <h2 
                     className='MailingListForm__label'
                 >{label}</h2>
                 <input 
-                    placeHolder='first name...'
+                    placeholder='first name...'
                     onChange={(e)=>{setFirstName(e.target.value)}}
                     className='MailingListForm__input'
                     ></input>
                 <input 
-                    placeHolder="last name..."
+                    placeholder="last name..."
                     onChange={(e)=>{setLastName(e.target.value)}}
                     className='MailingListForm__input'
                     ></input>
@@ -52,7 +57,7 @@ export default function MailingListForm ({label}){
                 {error?<div className="MailingListForm__error">
                     {error}
                 </div>:PageTransitionEvent}
-            </form>
+            </Form>
         )
     }
     else{
@@ -60,4 +65,5 @@ export default function MailingListForm ({label}){
            <p id="mailingListThankYou"> Thank You for Signing Up</p>
         )
     }
+   
 }

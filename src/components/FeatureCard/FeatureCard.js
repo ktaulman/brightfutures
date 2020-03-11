@@ -24,15 +24,16 @@ export default function FeatureCard ({backgroundImage,backgroundColor,title,capt
          <div className='FeatureCard__buttonsWrapper'>
                 
                {buttonsArray?
-                    buttonsArray.map(el=>{
+                    buttonsArray.map((el,i)=>{
                         return(
                             <button 
+                            key={"button"+ i}
                             className='FeatureCard__button'
                             style={{
                                 color:el.textColor||'#FFFFFF',
                                 backgroundColor:el.backgroundColor||'#000000',
                                 fontSize:el.fontSize,
-                                
+  
                             }}>
                                 {el.label}
                             </button>

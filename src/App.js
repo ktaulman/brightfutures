@@ -1,12 +1,14 @@
 import React,{useState,useEffect} from 'react';
-import {Switch,Route,Link} from "react-router-dom";
+
+import {Route} from "react-router-dom";
 //Routes 
 import AboutUs from './routes/AboutUs';
 import Blog from './routes/Blog';
-import Donate from './routes/Donate';
-import Events from './routes/Events';
+
 import Home from './routes/Home';
-import Volunteer from './routes/Volunteer';
+// import Volunteer from './routes/Volunteer';
+// import Donate from './routes/Donate';
+// import Events from './routes/Events';
 
 //components
 import Header from './components/Header/Header';
@@ -15,7 +17,6 @@ import Logo from './components/Logo/Logo';
 import DropDown from './components/DropDown/DropDown';
 import NavigationLinks from './components/NavigationLinks/NavigationLinks'
 
-const password1='123dance';
 
 function App(){
     const [password,setPassword]=useState(null)
@@ -29,34 +30,41 @@ function App(){
         }
         window.addEventListener('resize',handleResize)
     })
+
+    const openPassword=process.env.REACT_APP_OPEN_PASSWORD
+    function handlePasswordSubmit(){
+        if(password===openPassword){
+            setIsCorrectPassword(true)
+        }else{
+            setError('ERROR:WRONG PASSWORD')
+            setTimeout(function(){
+                setError(null)
+            },1000)
+        }
+    }
     if(!isCorrectPassword){
         return(
+    
         <div>
             <h1>Enter Unlock</h1>
+     
             <input 
                 type='password' 
                 onChange={(e)=>setPassword(e.target.value)}
-                onKeyPress={(e)=>e.key==='Enter'?console.log('enterclick'):null}
+                onKeyPress={(e)=>
+                    e.key==='Enter'?handlePasswordSubmit():null
+                }
             ></input>
            
             <button 
-                onClick={()=>{
-                    if(password===password1){
-                        setIsCorrectPassword(true)
-                    }else{
-                        setError('ERROR:WRONG PASSWORD')
-                        setTimeout(function(){
-                            setError(null)
-                        },1000)
-                    }
-                }}
+                onClick={handlePasswordSubmit}
                 type='submit'
             >Submit</button>
             <div>{error}</div>
         </div>
         )
     }
-    else{
+  
     return(
        <>
             <Header>
@@ -76,14 +84,8 @@ function App(){
                 <Home />
             </Route>
             
-            <Route path='/events'> 
-                <Events /> 
-            </Route>
-            <Route path='/volunteer'>
-                <Volunteer />
-            </Route>
-            <Route path='/donate'>
-                <Donate/>
+            <Route path='/aboutus'>
+                <AboutUs/>
             </Route>
             <Route path='/blog'>
                 <Blog />
@@ -92,6 +94,6 @@ function App(){
                 {/* <NavigationLinks row noBackground style={{fontSize:'16px',color:'#00000'}}/> */}
             </Footer>
     </>
-    )}
+    )
 }
 export default App;

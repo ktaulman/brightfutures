@@ -14,20 +14,38 @@ import linkedin from '../components/SocialLinks/linkedin.svg';
 import MailingListForm from '../components/MailingListForm/MailingListForm'
 import ContactInfo from '../components/ContactInfo/ContactInfo'
 const axios = require('axios').default;
-// .data.sys.items[0].title)
+
+
+//.env variables
+
+
+
+
+
 export default function Home(){
     const[title,setTitle]=useState(null);
     const[body,setBody]=useState(null);
 
+
     useEffect(()=>{
-        //Content.getTextSection().then(res=>res.title res.textbody)
+        const spaceId=process.env.REACT_APP_CONTENTFUL_SPACE_ID
+        const apiKey=process.env.REACT_APP_CONTENTFUL_API_KEY
+        //Load Text Section Data
         axios
-        .get("https://cdn.contentful.com/spaces/8hea45tlyfai/entries?access_token=UIiAddefOb7UATsIqw8BvxbqHUEklaS-MwaP-8Y2axc")
-        .then(res=>{
-            setTitle(res.data.items[0].fields.title)
-            setBody(res.data.items[0].fields.textBody)
-        }
+            .get(`https://cdn.contentful.com/spaces/${spaceId}/entries?access_token=${apiKey}`)
+            .then(res=>{
+              setTitle(res.data.items[0].fields.title)
+             setBody(res.data.items[0].fields.textBody)
+            }
         )
+        //Load Feature Card 
+        axios
+        .get(`https://cdn.contentful.com/spaces/${spaceId}/entries?access_token=${apiKey}`)
+        .then(res=>{
+        setTitle(res.data.items[0].fields.title)
+         setBody(res.data.items[0].fields.textBody)
+        }
+    )
     },[])
 
     const icons=[
@@ -82,7 +100,7 @@ return(
                     [
                         {
                             backgroundColor:'#7E62AC',
-                            label:'Donate',
+                            label:'I want to Donate',
                             component:<TextSection
                                 label='How to Donate'
                                 body='See below that our Strip payment systtem can take cash check and other forms of materials.'
@@ -91,7 +109,7 @@ return(
                         },
                         {
                             backgroundColor:"#AC9562",
-                            label:'Events',
+                            label:'I want to register for an Event',
                             component:<TextSection
                                 label="Upcoming Events"
                                 body="We have our upcoming Summer Camp from June 6-10, 2020."
@@ -100,7 +118,7 @@ return(
                         },
                         {
                             backgroundColor:"#AC6F62",
-                            label:'Volunteer',
+                            label:'I want to Volunteer',
                             component:<TextSection
                                 label='How to Volunteer'
                                 body='We would like to have as many volunteers for our upcoming events as possible. Sign up today to hear frrom our team. '
