@@ -19,7 +19,8 @@ const password1='123dance';
 
 function App(){
     const [password,setPassword]=useState(null)
-    const [isCorrectPassword,setIsCorrectPassword]=useState(true)
+    const [error,setError]=useState(null);
+    const [isCorrectPassword,setIsCorrectPassword]=useState(false)
     const[screenWidth,setScreenWidth]=useState(window.innerWidth)
     //window resize effect 
     useEffect(()=>{
@@ -32,12 +33,25 @@ function App(){
         return(
         <div>
             <h1>Enter Unlock</h1>
-            <input type='text' onChange={(e)=>setPassword(e.target.value)}>password</input>
-            <submit onClick={()=>{
-                if(password===password1){
-                    setIsCorrectPassword(true)
-                }
-            }}>Submit</submit>
+            <input 
+                type='password' 
+                onChange={(e)=>setPassword(e.target.value)}
+            ></input>
+            {password}
+            <button 
+                onClick={()=>{
+                    if(password===password1){
+                        setIsCorrectPassword(true)
+                    }else{
+                        setError('ERROR:WRONG PASSWORD')
+                        setTimeout(function(){
+                            setError(null)
+                        },1000)
+                    }
+                }}
+                type='submit'
+            >Submit</button>
+            <div>{error}</div>
         </div>
         )
     }
