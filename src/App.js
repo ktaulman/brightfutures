@@ -21,7 +21,7 @@ import NavigationLinks from './components/NavigationLinks/NavigationLinks'
 function App(){
     const [password,setPassword]=useState(null)
     const [error,setError]=useState(null);
-    const [isCorrectPassword,setIsCorrectPassword]=useState(false)
+    const [isCorrectPassword,setIsCorrectPassword]=useState(true)
     const[screenWidth,setScreenWidth]=useState(window.innerWidth)
     //window resize effect 
     useEffect(()=>{
