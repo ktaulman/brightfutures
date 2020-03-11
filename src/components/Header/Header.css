@@ -1,0 +1,14 @@
+.header{
+    border-bottom: 1px solid rgba(151,151,151,0.50);
+    box-shadow: 0 1px 3px 0px rgba(0,0,0,0.50);
+    padding:5px;
+    display:flex;
+    justify-content:space-evenly;
+    width:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    overflow:hidden;
+    background:#FFFFFF;
+    z-index:1;
+}

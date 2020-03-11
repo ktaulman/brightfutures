@@ -1,0 +1,31 @@
+.TextSection{
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    width:70%;
+    font-family:"roboto-light";
+    padding:20px;
+}
+.TextSection__label{
+    font-family:'Roboto-Medium';
+    font-size:40px;
+    letter-spacing: 2.5px;
+    line-height: 50px;
+    margin:0;
+    width:100%;
+}
+.TextSection__body{
+    color: #000000;
+    font-size: 16px;
+    margin: 5px;
+    width:100%;
+    letter-spacing: 2.5px;
+    line-height: 20px;
+}
+@media screen and (max-width:501px){
+
+
+}
+@media screen and (max-width:1050px){
+ 
+}

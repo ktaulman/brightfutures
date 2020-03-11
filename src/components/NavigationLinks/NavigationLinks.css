@@ -1,0 +1,29 @@
+.nav{
+    margin-top: 10px;
+    display:flex;
+    align-items: center;
+    flex-grow:1;
+    justify-content: space-evenly;
+    padding:15px;
+}
+.nav__link{
+    margin:10px 0px 10px 0px;
+    text-decoration:none;
+    text-transform:uppercase;
+
+}
+.nav__link:hover{
+    text-decoration:underline;
+}
+.nav__link:visited{
+    color:#000000;
+}
+.nav__selected{
+    font-weight: bold;
+}
+
+@media screen and (min-width:900px){
+    .nav__link{
+        font-size:24px;
+    }
+}

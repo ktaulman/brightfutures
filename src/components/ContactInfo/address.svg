@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="15px" viewBox="0 0 14 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Iphone" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Nav-Menu-Dropdown" transform="translate(-58.000000, -856.000000)" fill="#62AC9A" fill-rule="nonzero">
+            <g id="&lt;App-/&gt;" transform="translate(0.000000, 12.000000)">
+                <g id="ContactInformation" transform="translate(51.000000, 771.000000)">
+                    <g id="484167" transform="translate(7.000000, 73.000000)">
+                        <path d="M7,0 C3.14027316,0 0,2.24305664 0,5 C0,5.82764648 0.289692794,6.64825195 0.840408515,7.37610352 L6.61720192,14.8388672 C6.69410607,14.9383594 6.84065461,15 7,15 C7.15934539,15 7.30589393,14.9383594 7.38279808,14.8388672 L13.1617243,7.37364258 C13.7103072,6.64825195 14,5.82761719 14,4.99998047 C14,2.24305664 10.8597268,0 7,0 Z M7,7.5 C5.07013658,7.5 3.50002051,6.37848633 3.50002051,5.00001953 C3.50002051,3.6215332 5.07013658,2.50001953 7,2.50001953 C8.92986342,2.50001953 10.4999795,3.6215332 10.4999795,5.00001953 C10.4999795,6.37848633 8.92986342,7.5 7,7.5 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

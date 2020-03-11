@@ -1,0 +1,94 @@
+.FeatureCard{
+    width:80%;
+    height:auto;
+    padding: 0px 45px;
+    margin: 10px 0px;
+    display: inline-block;
+    font-family: 'roboto-light';
+    font-weight: normal;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.FeatureCard__title{
+    color:#FFFFFF;
+    margin:0;
+}
+.FeatureCard__caption{
+    font-weight:normal;
+    color:#62AC9A;
+    margin:0;
+    font-Family:roboto-thin
+}
+.FeatureCard__description{
+    font-weight:normal;
+    color:#62AC9A;
+    margin:0;
+}
+.FeatureCard__buttonsWrapper{
+    display:flex;
+    flex-direction: column;
+    padding:10px;
+    justify-content: center;
+    align-items:center;
+}
+.FeatureCard__button{
+    letter-spacing: 1.65px;
+    line-height: .75;
+    font-weight:normal;
+    padding: 10px 15px;
+    text-align:center;
+    width:100%;
+    border:none;
+    margin:5px;
+    text-transform:uppercase;
+}
+.FeatureCard__button:hover{
+    cursor: pointer;
+    outline:2px #FFFFFF solid;
+}
+
+@media screen and (max-width:550px){
+    .FeatureCard{
+        height:auto;
+    }
+    .FeatureCard__title,.FeatureCard__caption,.FeatureCard__description{
+        transform:scale(1.1);
+        margin:10px 0px;
+    }
+    .FeatureCard__textWrapper,.FeatureCard__buttonsWrapper{
+        margin:10px 0px;
+        transform:scale(.8)
+    }
+    .FeatureCard__button{
+        font-size:18px;
+        padding:10px 25px;
+    }
+
+}
+@media screen and (min-width:551px) and (max-width:750px){
+    .FeatureCard{
+        min-height:350px;
+    }
+    .FeatureCard__title,.FeatureCard__caption,.FeatureCard__description{
+        transform:scale(1.2);
+        margin:10px 0px;
+    }
+    .FeatureCard__button{
+        font-size:16px;
+    }
+}
+@media screen and (min-width:751px){
+    .FeatureCard{
+        min-height:385px;
+    }
+    .FeatureCard__title,.FeatureCard__caption,.FeatureCard__description{
+        transform:scale(1.5);
+        margin:10px 0px;
+    }
+    .FeatureCard__button{
+        font-size:20px;
+        padding:10px 25px;
+    }
+}

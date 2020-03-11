@@ -1,0 +1,28 @@
+.ContactInfo{}
+.ContactInfo__list{
+    font-family:'roboto-light';
+    margin:10px 0px;
+    padding:5px;
+    text-decoration:none;
+    list-style: none;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    width:300px;
+}
+.ContactInfo__title{
+    text-align:center;
+    font-weight:normal;
+    font-family:'Roboto-Thin';
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    font-style:normal;
+}
+.ContactInfo__list>li{
+    margin-top:10px;
+}
+.ContactInfo__link{
+    text-decoration:none;
+    font-style: normal;
+    color:#000000;
+}

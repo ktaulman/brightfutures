@@ -1,0 +1,11 @@
+*{
+  font-family:'Roboto-Thin';
+}
+html{
+  padding:3px;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+}
+
+
