@@ -36,6 +36,7 @@ function App(){
             <input 
                 type='password' 
                 onChange={(e)=>setPassword(e.target.value)}
+                onKeyPress={(e)=>e.key==='Enter'?console.log('enterclick'):null}
             ></input>
            
             <button 
