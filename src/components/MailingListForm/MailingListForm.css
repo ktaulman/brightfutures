@@ -3,7 +3,6 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items:center;
-    font-family:'roboto-thin';
     padding:'15px';
 }
 .MailingListForm__label{
@@ -11,7 +10,7 @@
     text-align:center;
     letter-spacing:2.5px;
     text-transform:uppercase;
-
+    font-weight:100;
 }
 .MailingListForm__input{
     margin:5px 0px;
@@ -20,13 +19,15 @@
     font-size:14px;
 }
 .MailingListForm__button{
-    font-family: "Roboto-Thin";
+    font-weight:100;
     text-transform:uppercase;
     margin:5px 0px;
     background-color: #AC9562;
     font-size:16px;
-    padding: 3px 10px;
+    padding: 5px 10px;
     color:#FFFFFF;
+    outline:none;
+    letter-spacing:1.5px;
 }
 .MailingListForm__button:hover{
     cursor:pointer;

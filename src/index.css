@@ -1,14 +1,4 @@
-*{
-  font-family:'Roboto-Thin';
-}
-html{
-  padding:3px;
-  margin:0;
-  display:flex;
-  flex-direction:column;
-}
-# Firefox.
-@font-face {
+font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 100;
@@ -36,7 +26,7 @@ html{
 }
 
 
-# Chrome.
+
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
@@ -66,7 +56,7 @@ html{
 }
 
 
-# Safari.
+
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
@@ -93,7 +83,7 @@ html{
 }
 
 
-#IE.
+
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
@@ -102,7 +92,7 @@ html{
 }
 
 
-# Final:
+
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
@@ -115,7 +105,7 @@ html{
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 @font-face {
-  font-family: 'Roboto';
+  font-family: Roboto-Light;
   font-style: normal;
   font-weight: 300;
   src: local('Roboto Light'),
@@ -139,3 +129,15 @@ html{
 }
 
 
+
+
+*, *>div{
+  font-family:'Roboto-light',"Roboto";
+  font-weight:100;
+}
+html{
+  padding:3px;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+}

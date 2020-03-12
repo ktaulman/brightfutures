@@ -1,4 +1,8 @@
-.ContactInfo{}
+.ContactInfo{
+    width:80%;
+    display:flex;
+    justify-content: center;
+}
 .ContactInfo__list{
     font-family:'roboto-light';
     margin:10px 0px;
@@ -8,21 +12,25 @@
     display:flex;
     flex-direction:column;
     justify-content: center;
-    width:300px;
 }
 .ContactInfo__title{
     text-align:center;
-    font-weight:normal;
-    font-family:'Roboto-Thin';
-    letter-spacing: 2.5px;
+    font-weight:100;
+    letter-spacing: 4.5px;
     text-transform: uppercase;
     font-style:normal;
 }
 .ContactInfo__list>li{
     margin-top:10px;
+    font-size:18px
 }
 .ContactInfo__link{
     text-decoration:none;
     font-style: normal;
     color:#000000;
+}
+@media screen and (max-width:450px){
+    .ContactInfo{
+        width:100%;
+    }
 }

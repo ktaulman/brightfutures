@@ -5,7 +5,7 @@
     text-align:center;
     padding:20px;
     color:#FFFFFF;
-    font-family:'roboto-thin';
+    font-family:'roboto','impact';
     font-size:1.5em;
     letter-spacing:2.5px;
     margin-top:10px;
@@ -16,17 +16,17 @@
 }
 
 @media screen and (max-width:550px){
-    .Footer{
-    }
+    /* .Footer{
+    } */
 }
 
 @media screen and (min-width:551px) and (max-width:750px){
-    .Footer{
+    /* .Footer{
 
-    }
+    } */
 }
 @media screen and (min-width:751px){
-    .Footer{
+    /* .Footer{
         
-    }
+    } */
 }
