@@ -7,10 +7,10 @@ import FeatureCard from '../components/FeatureCard/FeatureCard';
 import photo_dancers from '../components/FeatureCard/photo_dancers.png';
 import DropDownMenu from '../components/DropDownMenu/DropDownMenu';
 import SocialLinks from '../components/SocialLinks/SocialLinks';
-import twitter from '../components/SocialLinks/twitter.svg';
-import instagram from '../components/SocialLinks/instagram.svg';
-import facebook from '../components/SocialLinks/facebook.svg';
-import linkedin from '../components/SocialLinks/linkedin.svg';
+import twitterSVG from '../components/SocialLinks/twitter.svg';
+import instagramSVG from '../components/SocialLinks/instagram.svg';
+import facebookSVG from '../components/SocialLinks/facebook.svg';
+import linkedinSVG from '../components/SocialLinks/linkedin.svg';
 import MailingListForm from '../components/MailingListForm/MailingListForm'
 import ContactInfo from '../components/ContactInfo/ContactInfo'
 const axios = require('axios').default;
@@ -23,9 +23,23 @@ const axios = require('axios').default;
 
 
 export default function Home(){
+    //set Headline
     const[title,setTitle]=useState(null);
     const[body,setBody]=useState(null);
-
+    //set FeatureCard 
+    const[titleFeatureCard,setTitleFeatureCard]=useState(null);
+    const[captionFeatureCard,setcaptionFeatureCard]=useState(null);
+    const[detailsFeatureCard,setDetailsFeatureCard]=useState(null)
+    //set socialMediaLinks
+    const [twitterUrl,setTwitterUrl]=useState(null);
+    const [facebookUrl,setFacebookUrl]=useState(null);
+    const [linkedinUrl,setLinkedinUrl]=useState(null);
+    const [instagramUrl,setInstagramUrl]=useState(null);
+    //set Contact Information
+    const [telephoneNumber,setTelephoneNumber]=useState(null);
+    const [emailAddress,setEmailAddress]=useState(null);
+    const [mailingAddress,setMailingAddress]=useState(null);
+  
 
     useEffect(()=>{
         const spaceId=process.env.REACT_APP_CONTENTFUL_SPACE_ID
@@ -34,25 +48,27 @@ export default function Home(){
         axios
             .get(`https://cdn.contentful.com/spaces/${spaceId}/entries?access_token=${apiKey}`)
             .then(res=>{
-              setTitle(res.data.items[0].fields.title)
-             setBody(res.data.items[0].fields.textBody)
+                setTelephoneNumber(res.data.items[0].fields.telephoneNumber)
+                setEmailAddress(res.data.items[0].fields.emailAddress)
+                setMailingAddress(res.data.items[0].fields.mailingAddress)
+                setLinkedinUrl(res.data.items[1].fields.linkedinUrl)
+                setTwitterUrl(res.data.items[1].fields.twitterUrl)
+                setFacebookUrl(res.data.items[1].fields.facebookUrl)
+                setInstagramUrl(res.data.items[1].fields.instagramUrl)
+                setTitle(res.data.items[2].fields.title)
+                setBody(res.data.items[2].fields.textBody)
+                setTitleFeatureCard(res.data.items[3].fields.title)
+                 setcaptionFeatureCard(res.data.items[3].fields.caption)
+                 setDetailsFeatureCard(res.data.items[3].fields.details)
             }
         )
-        //Load Feature Card 
-        axios
-        .get(`https://cdn.contentful.com/spaces/${spaceId}/entries?access_token=${apiKey}`)
-        .then(res=>{
-        setTitle(res.data.items[0].fields.title)
-         setBody(res.data.items[0].fields.textBody)
-        }
-    )
     },[])
 
     const icons=[
-            {href:'https://twitter.com',svg:twitter},
-            {href:'https://instagram.com',svg:instagram},
-            {href:'https://facebook.com',svg:facebook},
-            {href:'https://linkedin.com',svg:linkedin}
+            {href:twitterUrl,svg:twitterSVG},
+            {href:instagramUrl,svg:instagramSVG},
+            {href:facebookUrl,svg:facebookSVG},
+            {href:linkedinUrl,svg:linkedinSVG}
         ]
     
 return(
@@ -75,9 +91,9 @@ return(
                     
                     <FeatureCard
                         backgroundImage={photo_dancers}
-                        title={'2020 Camp Girl Magic'}
-                        caption={'June 6-10,2020'}
-                        description={'The Art and Passion of Dance for Our Youth'}
+                        title={titleFeatureCard}
+                        caption={captionFeatureCard}
+                        description={detailsFeatureCard}
                         buttonsArray={[
                             {
                                 textColor:'#FFFFFF',
@@ -139,9 +155,9 @@ return(
             <MailingListForm label={"Sign Up for Our Mailing List"} />
             <Spacer height='10px'/>
             <ContactInfo
-                phone={"407-568-8967"}
-                email={'info@awtdance.online'}
-                address={"3000 Winderhall Rd, Atlanta, GA 30326"}
+                phone={telephoneNumber}
+                email={emailAddress}
+                address={mailingAddress}
             />
             <Spacer height='10px'/>
             </main>)
