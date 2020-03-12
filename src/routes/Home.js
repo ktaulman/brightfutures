@@ -1,6 +1,6 @@
 
 import React,{useEffect,useState} from 'react';
-
+//components
 import Spacer from '../components/Spacer/Spacer';
 import TextSection from '../components/TextSection/TextSection';
 import FeatureCard from '../components/FeatureCard/FeatureCard';
@@ -13,10 +13,14 @@ import facebookSVG from '../components/SocialLinks/facebook.svg';
 import linkedinSVG from '../components/SocialLinks/linkedin.svg';
 import MailingListForm from '../components/MailingListForm/MailingListForm'
 import ContactInfo from '../components/ContactInfo/ContactInfo'
-const axios = require('axios').default;
+//contentful CMS 
+const contentful=require('contentful')
+const content= contentful.createClient({
+    space:process.env.REACT_APP_CONTENTFUL_SPACE_ID,
+    accessToken:process.env.REACT_APP_CONTENTFUL_API_KEY
+})
 
 
-//.env variables
 
 
 
@@ -28,47 +32,55 @@ export default function Home(){
     const[body,setBody]=useState(null);
     //set FeatureCard 
     const[titleFeatureCard,setTitleFeatureCard]=useState(null);
-    const[captionFeatureCard,setcaptionFeatureCard]=useState(null);
+    const[captionFeatureCard,setCaptionFeatureCard]=useState(null);
     const[detailsFeatureCard,setDetailsFeatureCard]=useState(null)
     //set socialMediaLinks
-    const [twitterUrl,setTwitterUrl]=useState(null);
-    const [facebookUrl,setFacebookUrl]=useState(null);
-    const [linkedinUrl,setLinkedinUrl]=useState(null);
-    const [instagramUrl,setInstagramUrl]=useState(null);
+    const [twitter,setTwitterUrl]=useState(null);
+    const [facebook,setFacebookUrl]=useState(null);
+    const [linkedin,setLinkedinUrl]=useState(null);
+    const [instagram,setInstagramUrl]=useState(null);
     //set Contact Information
-    const [telephoneNumber,setTelephoneNumber]=useState(null);
-    const [emailAddress,setEmailAddress]=useState(null);
-    const [mailingAddress,setMailingAddress]=useState(null);
+    const [phone,setPhone]=useState(null);
+    const [email,setEmail]=useState(null);
+    const [mailing,setMailing]=useState(null);
   
-
     useEffect(()=>{
-        const spaceId=process.env.REACT_APP_CONTENTFUL_SPACE_ID
-        const apiKey=process.env.REACT_APP_CONTENTFUL_API_KEY
-        //Load Text Section Data
-        axios
-            .get(`https://cdn.contentful.com/spaces/${spaceId}/entries?access_token=${apiKey}`)
-            .then(res=>{
-                setTelephoneNumber(res.data.items[0].fields.telephoneNumber)
-                setEmailAddress(res.data.items[0].fields.emailAddress)
-                setMailingAddress(res.data.items[0].fields.mailingAddress)
-                setLinkedinUrl(res.data.items[1].fields.linkedinUrl)
-                setTwitterUrl(res.data.items[1].fields.twitterUrl)
-                setFacebookUrl(res.data.items[1].fields.facebookUrl)
-                setInstagramUrl(res.data.items[1].fields.instagramUrl)
-                setTitle(res.data.items[2].fields.title)
-                setBody(res.data.items[2].fields.textBody)
-                setTitleFeatureCard(res.data.items[3].fields.title)
-                 setcaptionFeatureCard(res.data.items[3].fields.caption)
-                 setDetailsFeatureCard(res.data.items[3].fields.details)
-            }
-        )
+        //headline 
+        content.getEntry('6XkSCISzGt8d0R5ubciAwA').then(res=>{
+            const {title,textBody}=res.fields;
+            setTitle(title);
+            setBody(textBody)
+        })
+        //featurecard
+        content.getEntry("XfArvtJCRzAdQzyZgIWbv").then(res=>{
+            const {title,caption,details}= res.fields;
+            setTitleFeatureCard(title);
+            setCaptionFeatureCard(caption)
+            setDetailsFeatureCard(details)
+        //socialMediaLinks
+        content.getEntry('2mSBA7L23BOJyXJwUuF4I').then(res=>{
+            const{twitterUrl, facebookUrl,linkedinUrl,instagramUrl }=res.fields;
+            setTwitterUrl(twitterUrl)
+            setFacebookUrl(facebookUrl)
+            setLinkedinUrl(linkedinUrl)
+            setInstagramUrl(instagramUrl)
+        })
+        //Contact Information 
+        content.getEntry("4MRX3nqYjh3A3EbRNSIPxk").then(res=>{
+            const{telephoneNumber,emailAddress,mailingAddress}=res.fields;
+            setPhone(telephoneNumber);
+            setEmail(emailAddress);
+            setMailing(mailingAddress)
+        })
+        })
+
     },[])
 
     const icons=[
-            {href:twitterUrl,svg:twitterSVG},
-            {href:instagramUrl,svg:instagramSVG},
-            {href:facebookUrl,svg:facebookSVG},
-            {href:linkedinUrl,svg:linkedinSVG}
+            {href:twitter,svg:twitterSVG},
+            {href:instagram,svg:instagramSVG},
+            {href:facebook,svg:facebookSVG},
+            {href:linkedin,svg:linkedinSVG}
         ]
     
 return(
@@ -155,9 +167,9 @@ return(
             <MailingListForm label={"Sign Up for Our Mailing List"} />
             <Spacer height='10px'/>
             <ContactInfo
-                phone={telephoneNumber}
-                email={emailAddress}
-                address={mailingAddress}
+                phone={phone}
+                email={email}
+                address={mailing}
             />
             <Spacer height='10px'/>
             </main>)
