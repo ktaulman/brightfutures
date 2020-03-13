@@ -69,7 +69,7 @@ function App(){
        <>
             <Header>
                 <Logo/>
-                <span>{screenWidth}</span>
+       
                 {
                     screenWidth<=700?
                     <DropDown 

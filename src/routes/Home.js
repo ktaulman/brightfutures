@@ -4,15 +4,18 @@ import React,{useEffect,useState} from 'react';
 import Spacer from '../components/Spacer/Spacer';
 import TextSection from '../components/TextSection/TextSection';
 import FeatureCard from '../components/FeatureCard/FeatureCard';
-import photo_dancers from '../components/FeatureCard/photo_dancers.png';
+
 import DropDownMenu from '../components/DropDownMenu/DropDownMenu';
 import SocialLinks from '../components/SocialLinks/SocialLinks';
+
+import MailingListForm from '../components/MailingListForm/MailingListForm'
+import ContactInfo from '../components/ContactInfo/ContactInfo'
+//media imports 
 import twitterSVG from '../components/SocialLinks/twitter.svg';
 import instagramSVG from '../components/SocialLinks/instagram.svg';
 import facebookSVG from '../components/SocialLinks/facebook.svg';
 import linkedinSVG from '../components/SocialLinks/linkedin.svg';
-import MailingListForm from '../components/MailingListForm/MailingListForm'
-import ContactInfo from '../components/ContactInfo/ContactInfo'
+import photo_dancers from '../components/FeatureCard/photo_dancers.png';
 //contentful CMS 
 const contentful=require('contentful')
 const content= contentful.createClient({
