@@ -23,8 +23,12 @@
     line-height: 20px;
 }
 @media screen and (max-width:501px){
+  .TextSection__label{
+      font-size:28px;
+  }
+  .TextSection__body{
 
-
+  }
 }
 @media screen and (max-width:1050px){
  
