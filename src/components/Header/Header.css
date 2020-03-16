@@ -5,11 +5,17 @@
     display:flex;
     justify-content:space-evenly;
     align-items:center;
-    width:100%;
+        width:100%;
     position:fixed;
+    padding-left: 20px;
     top:0;
     left:0;
     overflow:hidden;
     background:#FFFFFF;
     z-index:1;
+}
+@media screen and (min-width:400){
+    .header{
+        background:red;
+    }
 }

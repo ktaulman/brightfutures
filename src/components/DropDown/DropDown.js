@@ -1,31 +1,18 @@
 import React,{useState} from 'react';
-
+import './DropDown.css'
 
 
 export default function DropDown ({dropDownContent}){
     //css styling 
-    const style_button={
-        padding:"10px",
-        border:'none'
-    };
-    
-    const style_container={
-        position:'relative',
-    }
-    const style_content={
-        position:'fixed',
-        zIndex:'1',
-        right:'0',
-        marginTop:'40px',
-        overflow:'auto'
-    }
+   
+   
     //state
     const [isToggled,setToggle]=useState(false);
 
     return(
-        <div style={style_container}>
+        <div className='DropDown__container' >
             <button 
-                style={style_button}
+                className="DropDown__button"
                 onClick={()=>setToggle(!isToggled)}
             >
 
@@ -43,7 +30,7 @@ export default function DropDown ({dropDownContent}){
 
 
             {isToggled?
-                <span style={style_content}>{dropDownContent}</span>:
+                <div className="DropDown__content">{dropDownContent}</div>:
                 null
             }
         </div>
