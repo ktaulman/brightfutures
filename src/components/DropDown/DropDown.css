@@ -10,10 +10,11 @@
     -webkit-transform: translate3d(0,0,0);
 }
 .DropDown__button{
+    height:50px;
+    width:50px;
     padding:10px;
     border:none;
     outline:none;
-    background:red;
 }
 .DropDown__button:hover{
     cursor: pointer;
