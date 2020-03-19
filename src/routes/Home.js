@@ -11,11 +11,13 @@ import SocialLinks from '../components/SocialLinks/SocialLinks';
 import MailingListForm from '../components/MailingListForm/MailingListForm'
 import ContactInfo from '../components/ContactInfo/ContactInfo'
 //media imports 
+// import TicketPurchase from '../components/TicketPurchase/TicketPurchase'
 import twitterSVG from '../components/SocialLinks/twitter.svg';
 import instagramSVG from '../components/SocialLinks/instagram.svg';
 import facebookSVG from '../components/SocialLinks/facebook.svg';
 import linkedinSVG from '../components/SocialLinks/linkedin.svg';
 import photo_dancers from '../components/FeatureCard/photo_dancers.png';
+import TicketPurchase from '../components/TicketPurchase/TicketPurchase'
 //contentful CMS 
 const contentful=require('contentful')
 const content= contentful.createClient({
@@ -47,7 +49,7 @@ export default function Home(){
     const [email,setEmail]=useState(null);
     const [mailing,setMailing]=useState(null);
   
-    useEffect(()=>{
+    useEffect(()=>{   
         //headline 
         content.getEntry('6XkSCISzGt8d0R5ubciAwA').then(res=>{
             const {title,textBody}=res.fields;
@@ -79,6 +81,8 @@ export default function Home(){
 
     },[])
 
+   
+
     const icons=[
             {href:twitter,svg:twitterSVG},
             {href:instagram,svg:instagramSVG},
@@ -103,7 +107,7 @@ return(
                     />
 
                     <Spacer height='10px'/>
-                    
+             
                     <FeatureCard
                         backgroundImage={photo_dancers}
                         title={titleFeatureCard}
@@ -114,7 +118,7 @@ return(
                                 textColor:'#FFFFFF',
                                 backgroundColor:'#AC6F62',
                                 href:"#",
-                                label:'Registration'
+                                label:'Buy Tickets'
                             },
                             {
                                 textColor:'#000000',
@@ -136,16 +140,13 @@ return(
                                 label='How to Donate'
                                 body='See below that our Strip payment systtem can take cash check and other forms of materials.'
                                 color='#7E62AC'
-                            />
+                            />,
+                            
                         },
                         {
                             backgroundColor:"#AC9562",
                             label:'Events',
-                            component:<TextSection
-                                label="Upcoming Events"
-                                body="We have our upcoming Summer Camp from June 6-10, 2020."
-                                color='#AC9562'
-                            />
+                            component:<TicketPurchase/>
                         },
                         {
                             backgroundColor:"#AC6F62",
@@ -161,19 +162,25 @@ return(
             />
 
 
-            <Spacer height='10px'/>      
+            <Spacer height='10px'/>  
+
             <SocialLinks
                 label={'Get Connected'}
                 iconsArray={icons}
             />
+
             <Spacer height='10px'/>
+
             <MailingListForm label={"Sign Up for Our Mailing List"} />
+
             <Spacer height='10px'/>
+
             <ContactInfo
                 phone={phone}
                 email={email}
                 address={mailing}
             />
             <Spacer height='10px'/>
+   
             </main>)
             }
