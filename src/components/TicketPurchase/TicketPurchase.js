@@ -21,10 +21,10 @@ export default function TicketPurchase(){
         // })
     },[])
     return(
-        <>
+        <div id='ticket'>
         <h1>2020 Camp:Preparing Our Girls for Center Stage</h1>
         <div id="eventbrite-widget-container-100295540662"></div>
         
-        </>
+        </div>
     )
 }

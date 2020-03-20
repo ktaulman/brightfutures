@@ -107,7 +107,7 @@ return(
                     />
 
                     <Spacer height='10px'/>
-             
+                {/* use spacers */}
                     <FeatureCard
                         backgroundImage={photo_dancers}
                         title={titleFeatureCard}
