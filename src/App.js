@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react';
 
 import {Route} from "react-router-dom";
 //Routes 
-import AboutUs from './routes/AboutUs';
+import Events from './routes/Events'
 import Blog from './routes/Blog';
 
 import Home from './routes/Home';
@@ -21,7 +21,7 @@ import NavigationLinks from './components/NavigationLinks/NavigationLinks'
 function App(){
     const [password,setPassword]=useState(null)
     const [error,setError]=useState(null);
-    const [isCorrectPassword,setIsCorrectPassword]=useState(false)
+    const [isCorrectPassword,setIsCorrectPassword]=useState(true)
     const[screenWidth,setScreenWidth]=useState(window.innerWidth)
     //window resize effect 
     useEffect(()=>{
@@ -84,8 +84,8 @@ function App(){
                 <Home />
             </Route>
             
-            <Route path='/aboutus'>
-                <AboutUs/>
+            <Route path='/events'>
+                <Events/>
             </Route>
             <Route path='/blog'>
                 <Blog />

@@ -1,17 +1,19 @@
 import React from 'react';
 import './FeatureCard.css';
 
-export default function FeatureCard ({backgroundImage,backgroundColor,title,caption,description,buttonsArray}){
+export default function FeatureCard ({backgroundImageURL,backgroundColor,title,caption,description,buttonsArray}){
     return(
+    
    
         <section 
             className="FeatureCard"
             style={{
-                background:
-                    backgroundImage?`url(${backgroundImage})`:backgroundColor,
+                    backgroundImage:`url(${backgroundImageURL})`,
                     backgroundRepeat:'no-repeat',
-                    // backgroundSize:'100%',
-                    backgroundPosition:'center'
+                    backgroundColor:'black',
+                    backgroundPosition:'center',
+                    backgroundSize:'cover'
+                   
             }}
        >
      

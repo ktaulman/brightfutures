@@ -36,6 +36,7 @@ export default function Home(){
     const[title,setTitle]=useState(null);
     const[body,setBody]=useState(null);
     //set FeatureCard 
+    const[backgroundFeatureCard,setBackgroundFeatureCard]=useState(null);
     const[titleFeatureCard,setTitleFeatureCard]=useState(null);
     const[captionFeatureCard,setCaptionFeatureCard]=useState(null);
     const[detailsFeatureCard,setDetailsFeatureCard]=useState(null)
@@ -58,7 +59,10 @@ export default function Home(){
         })
         //featurecard
         content.getEntry("XfArvtJCRzAdQzyZgIWbv").then(res=>{
+            console.log(res)
+            console.log(res.fields)
             const {title,caption,details}= res.fields;
+            setBackgroundFeatureCard(res.fields.backgroundImage.fields.file.url)
             setTitleFeatureCard(title);
             setCaptionFeatureCard(caption)
             setDetailsFeatureCard(details)
@@ -87,7 +91,6 @@ export default function Home(){
             {href:twitter,svg:twitterSVG},
             {href:instagram,svg:instagramSVG},
             {href:facebook,svg:facebookSVG},
-            {href:linkedin,svg:linkedinSVG}
         ]
     
 return(
@@ -109,7 +112,7 @@ return(
                     <Spacer height='10px'/>
                 {/* use spacers */}
                     <FeatureCard
-                        backgroundImage={photo_dancers}
+                        backgroundImageURL={backgroundFeatureCard}
                         title={titleFeatureCard}
                         caption={captionFeatureCard}
                         description={detailsFeatureCard}
