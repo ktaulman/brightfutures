@@ -10,9 +10,8 @@
     padding-left: 20px;
     top:0;
     left:0;
-    overflow:hidden;
-    background:#FFFFFF;
     z-index:1;
+    background:#FFFFFF;
 }
 @media screen and (min-width:400){
     .header{

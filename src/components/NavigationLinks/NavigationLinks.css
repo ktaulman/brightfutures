@@ -5,6 +5,7 @@
     flex-grow:1;
     justify-content: space-evenly;
     padding:15px;
+    z-index:1;
 }
 .nav__link{
     margin:10px 0px 10px 0px;

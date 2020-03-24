@@ -2,22 +2,28 @@ import React from 'react';
 import './FeatureCard.css';
 
 export default function FeatureCard ({backgroundImageURL,backgroundColor,title,caption,description,buttonsArray}){
+
     return(
-    
-   
+        
         <section 
-            className="FeatureCard"
-            style={{
-                    backgroundImage:`url(${backgroundImageURL})`,
-                    backgroundRepeat:'no-repeat',
-                    backgroundColor:'black',
-                    backgroundPosition:'center',
-                    backgroundSize:'cover'
-                   
-            }}
+            id='FeatureCard'
+            className="FeatureCard"   
        >
-     
+         <div
+        style={{ 
+         
+             backgroundImage:`url(${backgroundImageURL})`,
+             backgroundPosition:'center',
+             backgroundSize:'100% 100%',
+             backgroundRepeat:'no-repeat'
+    
+        }}
+        className="FeatureCard__background"
+            alt=''
+            ></div>
         <div className='FeatureCard__textWrapper'>
+       
+
             <h2 className='FeatureCard__title' >{title}</h2>
             <h3 className='FeatureCard__caption'>{caption}</h3>
             <h3 className='FeatureCard__description'>{description}</h3>
@@ -45,6 +51,5 @@ export default function FeatureCard ({backgroundImageURL,backgroundColor,title,c
                :null}
            </div>
         </section>
-    
     )
 }

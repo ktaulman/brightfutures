@@ -10,7 +10,7 @@ export default function DropDown ({dropDownContent}){
     const [isToggled,setToggle]=useState(false);
 
     return(
-        <div className='DropDown__container' >
+        <div className='DropDown' >
             <button 
                 className="DropDown__button"
                 onClick={()=>setToggle(!isToggled)}
