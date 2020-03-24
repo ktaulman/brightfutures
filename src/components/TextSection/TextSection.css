@@ -13,6 +13,7 @@
     line-height: 50px;
     margin:0;
     width:100%;
+    font-weight:300;
 }
 .TextSection__body{
     color: #000000;
