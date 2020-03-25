@@ -11,6 +11,7 @@ export default function ModalWrapper({title,handleClose,children}){
                 <h2 className="ModalWrapper__title">{title}</h2>
 
                 <button 
+                id='ModalWrapper__button'
                 className='ModalWrapper__button'
                 onClick={()=>handleClose()}
                 >X</button>

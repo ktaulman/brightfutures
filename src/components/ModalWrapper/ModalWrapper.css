@@ -1,7 +1,6 @@
 .ModalWrapper{
     font-weight:normal;
     width:60%;
- 
     padding:25px 45px;
     display:flex;
     flex-direction: column;
@@ -58,5 +57,10 @@
 
 .ModalWrapper__button:hover{
     cursor:pointer;
-    color:
+    color: red;
+}
+@media screen and (max-width:701px){
+    .ModalWrapper{
+        width:100%;
+    }
 }

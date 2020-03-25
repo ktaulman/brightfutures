@@ -116,7 +116,7 @@ return(
     <ModalWrapper   
         handleClose={handleClick}
         title="Buy Event Ticket"
-    ><EventBrite/></ModalWrapper>:null}
+    ><EventBrite /></ModalWrapper>:null}
     <main style={{
                 display:'flex',
                 flexDirection:'column',
@@ -178,7 +178,7 @@ return(
                         {
                             backgroundColor:"#AC9562",
                             label:'Events',
-                            component:<EventBrite />
+                            component:<EventBrite number='number2' />
                         },
                         {
                             backgroundColor:"#AC6F62",
