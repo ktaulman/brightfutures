@@ -119,7 +119,7 @@ return(
                         buttonsArray={[
                             {
                                 textColor:'#FFFFFF',
-                                backgroundColor:'#AC6F62',
+                                backgroundColor:'rgb(172, 149, 98)',
                                 href:"#",
                                 label:'Buy Tickets'
                             },
