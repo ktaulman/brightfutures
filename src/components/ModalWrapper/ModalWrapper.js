@@ -4,14 +4,14 @@ import './ModalWrapper.css'
 
 export default function ModalWrapper({title,handleClose,children}){
     return(
-        <main className='.ModalWrapper'>
+        <main className='ModalWrapper'>
             <section 
                 className='ModalWrapper__header'
             >
                 <h2 className="ModalWrapper__title">{title}</h2>
 
                 <button 
-                className='ModalWrapper__content'
+                className='ModalWrapper__button'
                 onClick={()=>handleClose()}
                 >X</button>
             </section>

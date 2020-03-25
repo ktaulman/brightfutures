@@ -10,14 +10,15 @@ import SocialLinks from '../components/SocialLinks/SocialLinks';
 
 import MailingListForm from '../components/MailingListForm/MailingListForm'
 import ContactInfo from '../components/ContactInfo/ContactInfo'
+import EventBrite from '../components/Eventbrite/EventBrite'
 //media imports 
 // import TicketPurchase from '../components/TicketPurchase/TicketPurchase'
 import twitterSVG from '../components/SocialLinks/twitter.svg';
 import instagramSVG from '../components/SocialLinks/instagram.svg';
 import facebookSVG from '../components/SocialLinks/facebook.svg';
-import linkedinSVG from '../components/SocialLinks/linkedin.svg';
-import photo_dancers from '../components/FeatureCard/photo_dancers.png';
-import TicketPurchase from '../components/TicketPurchase/TicketPurchase'
+
+
+import ModalWrapper from '../components/ModalWrapper/ModalWrapper';
 //contentful CMS 
 const contentful=require('contentful')
 const content= contentful.createClient({
@@ -32,6 +33,20 @@ const content= contentful.createClient({
 
 
 export default function Home(){
+    //set Model 
+    const [isModalClicked,setIsModalClicked]=useState(true)
+    function handleClick(){
+      
+        const main=document.querySelector('#main');
+
+        if(isModalClicked){
+            setIsModalClicked(!isModalClicked)
+            main.classList.remove('--opacity')
+        }else{
+            setIsModalClicked(!isModalClicked)
+            main.classList.add('--opacity')
+        }
+    }
     //set Headline
     const[title,setTitle]=useState(null);
     const[body,setBody]=useState(null);
@@ -43,7 +58,6 @@ export default function Home(){
     //set socialMediaLinks
     const [twitter,setTwitterUrl]=useState(null);
     const [facebook,setFacebookUrl]=useState(null);
-    const [linkedin,setLinkedinUrl]=useState(null);
     const [instagram,setInstagramUrl]=useState(null);
     //set Contact Information
     const [phone,setPhone]=useState(null);
@@ -68,10 +82,10 @@ export default function Home(){
             setDetailsFeatureCard(details)
         //socialMediaLinks
         content.getEntry('2mSBA7L23BOJyXJwUuF4I').then(res=>{
-            const{twitterUrl, facebookUrl,linkedinUrl,instagramUrl }=res.fields;
+            const{twitterUrl, facebookUrl,instagramUrl }=res.fields;
             setTwitterUrl(twitterUrl)
             setFacebookUrl(facebookUrl)
-            setLinkedinUrl(linkedinUrl)
+
             setInstagramUrl(instagramUrl)
         })
         //Contact Information 
@@ -92,16 +106,30 @@ export default function Home(){
             {href:instagram,svg:instagramSVG},
             {href:facebook,svg:facebookSVG},
         ]
-    
+
+//Setup modal being clicked 
+
+
 return(
+    <>
+    {isModalClicked?
+    <ModalWrapper   
+        handleClose={handleClick}
+        title="Buy Event Ticket"
+    ><EventBrite/></ModalWrapper>:null}
     <main style={{
                 display:'flex',
                 flexDirection:'column',
                 justifyContent:'flex-start',
                 alignItems:'center',
-                marginTop:"100px"
+                marginTop:"100px",
+                width:'100vw'
             }}
+            id='main'
             >   
+             
+   
+              
 
                     <TextSection 
                         label={title||'loading'}
@@ -110,7 +138,7 @@ return(
                     />
 
                     <Spacer height='10px'/>
-                {/* use spacers */}
+             
                     <FeatureCard
                         backgroundImageURL={backgroundFeatureCard}
                         title={titleFeatureCard}
@@ -121,7 +149,8 @@ return(
                                 textColor:'#FFFFFF',
                                 backgroundColor:'rgb(172, 149, 98)',
                                 href:"#",
-                                label:'Buy Tickets'
+                                label:'Buy Tickets',
+                                handleClick:handleClick
                             },
                             {
                                 textColor:'#000000',
@@ -141,7 +170,7 @@ return(
                             label:'Donate',
                             component:<TextSection
                                 label='How to Donate'
-                                body='See below that our Strip payment systtem can take cash check and other forms of materials.'
+                                body='See below that our Stripe payment systtem can take cash check and other forms of materials.'
                                 color='#7E62AC'
                             />,
                             
@@ -149,7 +178,7 @@ return(
                         {
                             backgroundColor:"#AC9562",
                             label:'Events',
-                            component:<TicketPurchase/>
+                            component:<EventBrite />
                         },
                         {
                             backgroundColor:"#AC6F62",
@@ -185,5 +214,6 @@ return(
             />
             <Spacer height='10px'/>
    
-            </main>)
+            </main>
+            </>)
             }

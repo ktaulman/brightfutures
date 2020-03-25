@@ -4,6 +4,7 @@
     flex-direction: column;
     align-items: center;
     margin:20px 0px;
+    position:relative;
 }
 .DropDownMenu__buttonsContainer{
     display:flex;
@@ -32,9 +33,10 @@
 .DropDownMenu__content{
     display:flex;
     flex-direction:column;
-    position:relatiive;
+    position:relative;
     padding:10px;
     width:80%;
+    z-index:5;
 }
 .DropDownMenu__closeButton{
     width:25px;

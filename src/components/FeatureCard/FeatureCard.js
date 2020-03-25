@@ -41,8 +41,11 @@ export default function FeatureCard ({backgroundImageURL,backgroundColor,title,c
                                 color:el.textColor||'#FFFFFF',
                                 backgroundColor:el.backgroundColor||'#000000',
                                 fontSize:el.fontSize,
+                                
   
-                            }}>
+                            }}
+                            onClick={el.handleClick}
+                            >
                                 {el.label}
                             </button>
 

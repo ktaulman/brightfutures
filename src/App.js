@@ -6,9 +6,7 @@ import Events from './routes/Events'
 import Blog from './routes/Blog';
 
 import Home from './routes/Home';
-// import Volunteer from './routes/Volunteer';
-// import Donate from './routes/Donate';
-// import Events from './routes/Events';
+
 
 //components
 import Header from './components/Header/Header';
@@ -16,6 +14,7 @@ import Footer from './components/Footer/Footer'
 import Logo from './components/Logo/Logo';
 import DropDown from './components/DropDown/DropDown';
 import NavigationLinks from './components/NavigationLinks/NavigationLinks'
+import './index.css'
 
 
 function App(){
@@ -64,7 +63,8 @@ function App(){
         </div>
         )
     }
-  //
+
+
     return(
        <>
             <Header>

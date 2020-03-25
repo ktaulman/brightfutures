@@ -14,24 +14,25 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div class='root' id="root"></div>
+
+    <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
     
-          <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
-        
-        <script type="text/javascript">
-            var exampleCallback = function() {
-                console.log('Order complete!');
-            };
-        
-            window.EBWidgets.createWidget({
-                widgetType: 'checkout',
-                eventId: '100295540662',
-                iframeContainerId: 'eventbrite-widget-container-100295540662',
-        
-                // Optional
-                iframeContainerHeight: 425,  // Widget height in pixels. Defaults to a minimum of 425px if not provided
-                onOrderComplete: exampleCallback  // Method called when an order has successfully completed
-            });
-          </script>
-          <script src="https://js.braintreegateway.com/web/dropin/1.22.1/js/dropin.min.js"></script>
+    <script type="text/javascript">
+        var exampleCallback = function() {
+            console.log('Order complete!');
+        };
+    
+        window.EBWidgets.createWidget({
+            // Required
+            widgetType: 'checkout',
+            eventId: '100295540662',
+            iframeContainerId: 'eventbrite-widget-container-100295540662',
+            iFrameAutoAdapt:'100',
+            // Optional
+            iframeContainerHeight: 425,  // Widget height in pixels. Defaults to a minimum of 425px if not provided
+            onOrderComplete: exampleCallback  // Method called when an order has successfully completed
+        });
+        console.log(window.EBWidgets)
+    </script>
   </body>
 </html>

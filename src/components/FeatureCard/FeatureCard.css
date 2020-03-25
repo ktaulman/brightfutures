@@ -117,7 +117,7 @@
 @media screen and (min-width:1001px){
     .FeatureCard{
         min-height:385px;
-        width:80%;
+        width:60%;
     }
     .FeatureCard__title,.FeatureCard__caption,.FeatureCard__description{
         transform:scale(1.5);
