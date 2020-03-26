@@ -19,14 +19,10 @@ import './index.css'
 
 import ModalWrapper from './components/ModalWrapper/ModalWrapper';
 
-//Import ModalContext
-import {ModalContext} from './context/ModalContext'
 
-console.log(ModalContext.toggleModal)
-console.log(ModalContext)
 function App(){
 
-
+    const[displayModal,setDisplayModal]=useState(false);
     //PASSWORD View
     const [password,setPassword]=useState(null)
     const [error,setError]=useState(null);
@@ -51,6 +47,7 @@ function App(){
             },1000)
         }
     }
+    //Password View
     if(!isCorrectPassword){
         return(
     
@@ -74,12 +71,19 @@ function App(){
         )
     }
     //modal logic
-    
-    
+    function openModal(){
+        setDisplayModal(true)
+    }
+    function closeModal(){
+        setDisplayModal(false)
+    }
+
+   
     return(
-       <ModalContext.Provider>
+        <>
         <ModalWrapper   
-            // handleClose={handleClick}
+            displayModal={displayModal}
+            handleClose={closeModal}
             title="Buy Event Ticket"
             >
             <div id="eventbrite-widget-container-100295540662"></div>
@@ -98,7 +102,7 @@ function App(){
             </Header>
 
             <Route exact path='/'>
-                <Home />
+                <Home openModal={openModal}/>
             </Route>
             
             <Route path='/events'>
@@ -111,7 +115,7 @@ function App(){
                 {/* <NavigationLinks row noBackground style={{fontSize:'16px',color:'#00000'}}/> */}
             </Footer>
       
-    </ModalContext.Provider>
+                </>
     )
 }
 export default App;

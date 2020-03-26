@@ -10,14 +10,16 @@ import SocialLinks from '../components/SocialLinks/SocialLinks';
 
 import MailingListForm from '../components/MailingListForm/MailingListForm'
 import ContactInfo from '../components/ContactInfo/ContactInfo'
-import EventBrite from '../components/Eventbrite/EventBrite'
 //media imports 
-// import TicketPurchase from '../components/TicketPurchase/TicketPurchase'
+
+//Import Social Media Links
 import twitterSVG from '../components/SocialLinks/twitter.svg';
 import instagramSVG from '../components/SocialLinks/instagram.svg';
 import facebookSVG from '../components/SocialLinks/facebook.svg';
 
 
+//have Modal Context available
+import {useModalContext} from '../context/ModalContext';
 
 
 //contentful CMS 
@@ -30,9 +32,8 @@ const content= contentful.createClient({
 
 
 
-export default function Home(){
-    //set Model 
- 
+export default function Home({openModal}){
+
     //set Headline
     const[title,setTitle]=useState(null);
     const[body,setBody]=useState(null);
@@ -93,11 +94,6 @@ export default function Home(){
 
 //Setup modal being clicked 
 
-    //
-
-    function handleClick(){
-   
-    }
 
 return(
     <>
@@ -135,9 +131,9 @@ return(
                             {
                                 textColor:'#FFFFFF',
                                 backgroundColor:'rgb(172, 149, 98)',
-                                href:"#",
                                 label:'Buy Tickets',
-                                handleClick:handleClick
+                                
+                                handleClick:openModal
                             },
                             {
                                 textColor:'#000000',

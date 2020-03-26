@@ -1,20 +1,29 @@
-import React from 'react';
+// import React,{useState} from 'react';
+// const modalContext=React.createContext();
 
-export const ModalContext = React.createContext({
-    isModalClicked:false,
-    toggleModal:()=>{
+// //React Component Modal Context Provider
+// export function ModalContextProvider({children}){
+//     const modal=useModalContext();
+//     return(
+//         <modalContext.Provider value={modal}>
+//             {children}
+//         </modalContext.Provider>
+//     )
+// }
+
+
+// //create interface for context
+// export function useModalContext(){
+//     //setup state for context provider
+//     const [isModalClicked,setIsModalClicked]=useState(false)
+
+//     function handleClick(){
+//         console.log(document.getElementById('ModalWrapper'))
+//         if(!isModalClicked){
            
-        const main=document.querySelector('#main');
-        const modal=document.querySelector('#ModalWrapper');
-        if(this.isModalClicked){
-            this.isModalClicked(false)
-            main.classList.remove('--opacity')
-            modal.classList.add('--displayNone')
-        }else{
-            this.isModalClicked(true)
-            main.classList.add('--opacity')
-           modal.classList.remove('--displayNone')
-        }
-    }
-    
-})
+//         }else{
+            
+//         }
+//     }
+//     return({isModalClicked,handleClick})
+// }
