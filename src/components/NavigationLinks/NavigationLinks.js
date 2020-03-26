@@ -19,11 +19,11 @@ export default function NavigationNavLinks({row,column,noBackground,color,childr
 
             <NavLink to='/events'className="nav__link" style={{color:color||'#000000',style}} activeClassName='nav__selected'>Events</NavLink>
     
-            <NavLink to='aboutus' className="nav__link" style={{color:color||'#000000',style}} activeClassName='nav__selected'>
+            <NavLink to='/aboutus' className="nav__link" style={{color:color||'#000000',style}} activeClassName='nav__selected'>
                 About Us
             </NavLink>
-            <NavLink to='/blog'className="nav__link" style={{color:color||'#000000',style}} activeClassName='nav__selected'>
-            Blog</NavLink>
+            <NavLink to='/donate'className="nav__link" style={{color:color||'#000000',style}} activeClassName='nav__selected'>
+            News</NavLink>
         </nav>
     )    
 }

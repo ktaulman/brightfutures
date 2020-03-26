@@ -18,7 +18,8 @@ import instagramSVG from '../components/SocialLinks/instagram.svg';
 import facebookSVG from '../components/SocialLinks/facebook.svg';
 
 
-import ModalWrapper from '../components/ModalWrapper/ModalWrapper';
+
+
 //contentful CMS 
 const contentful=require('contentful')
 const content= contentful.createClient({
@@ -29,24 +30,9 @@ const content= contentful.createClient({
 
 
 
-
-
-
 export default function Home(){
     //set Model 
-    const [isModalClicked,setIsModalClicked]=useState(true)
-    function handleClick(){
-      
-        const main=document.querySelector('#main');
-
-        if(isModalClicked){
-            setIsModalClicked(!isModalClicked)
-            main.classList.remove('--opacity')
-        }else{
-            setIsModalClicked(!isModalClicked)
-            main.classList.add('--opacity')
-        }
-    }
+ 
     //set Headline
     const[title,setTitle]=useState(null);
     const[body,setBody]=useState(null);
@@ -73,8 +59,6 @@ export default function Home(){
         })
         //featurecard
         content.getEntry("XfArvtJCRzAdQzyZgIWbv").then(res=>{
-            console.log(res)
-            console.log(res.fields)
             const {title,caption,details}= res.fields;
             setBackgroundFeatureCard(res.fields.backgroundImage.fields.file.url)
             setTitleFeatureCard(title);
@@ -109,14 +93,17 @@ export default function Home(){
 
 //Setup modal being clicked 
 
+    //
+
+    function handleClick(){
+   
+    }
 
 return(
     <>
-    {isModalClicked?
-    <ModalWrapper   
-        handleClose={handleClick}
-        title="Buy Event Ticket"
-    ><EventBrite /></ModalWrapper>:null}
+
+
+ 
     <main style={{
                 display:'flex',
                 flexDirection:'column',
@@ -178,7 +165,13 @@ return(
                         {
                             backgroundColor:"#AC9562",
                             label:'Events',
-                            component:<EventBrite number='number2' />
+                            component:<TextSection 
+                                label='Our Upcoming Events'
+                                body=''
+                                href="https://www.eventbrite.com/e/2020-camp-preparing-our-girls-for-center-stage-tickets-100295540662?ref=elink" 
+                                linkTitle={'July 2020 Camp'}
+                            />
+                            
                         },
                         {
                             backgroundColor:"#AC6F62",
@@ -187,6 +180,7 @@ return(
                                 label='How to Volunteer'
                                 body='We would like to have as many volunteers for our upcoming events as possible. Sign up today to hear frrom our team. '
                                 color='#AC6F62'
+                                
                             />
                         }
                     ]

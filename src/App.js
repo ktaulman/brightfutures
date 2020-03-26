@@ -17,7 +17,17 @@ import NavigationLinks from './components/NavigationLinks/NavigationLinks'
 import './index.css'
 
 
+import ModalWrapper from './components/ModalWrapper/ModalWrapper';
+
+//Import ModalContext
+import {ModalContext} from './context/ModalContext'
+
+console.log(ModalContext.toggleModal)
+console.log(ModalContext)
 function App(){
+
+
+    //PASSWORD View
     const [password,setPassword]=useState(null)
     const [error,setError]=useState(null);
     const [isCorrectPassword,setIsCorrectPassword]=useState(true)
@@ -63,10 +73,17 @@ function App(){
         </div>
         )
     }
-
-
+    //modal logic
+    
+    
     return(
-       <>
+       <ModalContext.Provider>
+        <ModalWrapper   
+            // handleClose={handleClick}
+            title="Buy Event Ticket"
+            >
+            <div id="eventbrite-widget-container-100295540662"></div>
+        </ModalWrapper>
             <Header>
                 <Logo/>
        
@@ -93,7 +110,8 @@ function App(){
             <Footer>
                 {/* <NavigationLinks row noBackground style={{fontSize:'16px',color:'#00000'}}/> */}
             </Footer>
-    </>
+      
+    </ModalContext.Provider>
     )
 }
 export default App;

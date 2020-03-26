@@ -1,7 +1,7 @@
 import React from 'react';
 import './TextSection.css'
 
-export default function TextSection({label,body,color,centerAll,sameColorAll,handleRender}){
+export default function TextSection({label,body,color,centerAll,sameColorAll,href,linkTitle,handleRender,button}){
    
     return (
         <div 
@@ -20,6 +20,7 @@ export default function TextSection({label,body,color,centerAll,sameColorAll,han
             >
                 {body}
             </p>
+            <a href={href} target='_blank' style={{color:"#45494E"}} rel="noopener noreferrer">{linkTitle}</a>
         </div>
     )
 }

@@ -1,10 +1,10 @@
-import React,{useState} from 'react';
+import React from 'react';
 
 import './ModalWrapper.css'
 
 export default function ModalWrapper({title,handleClose,children}){
     return(
-        <main className='ModalWrapper'>
+        <main className='ModalWrapper --displayNone' id='ModalWrapper'>
             <section 
                 className='ModalWrapper__header'
             >

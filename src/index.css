@@ -155,3 +155,6 @@ html{
 .--opacity{
   opacity:0.5;
 }
+.--displayNone{
+  display:none;
+}
