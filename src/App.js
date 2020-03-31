@@ -4,8 +4,9 @@ import {Route, NavLink} from "react-router-dom";
 //Routes 
 import Events from './routes/Events'
 import Blog from './routes/Blog';
-
+import Donate from './routes/Donate'
 import Home from './routes/Home';
+import Tickets from './routes/Tickets'
 
 
 //components
@@ -110,6 +111,13 @@ function App(){
                 <Home openModal={openModal}/>
             </Route>
             
+            <Route path='/donate'>
+                <Donate/>
+            </Route>
+            <Route path='/tickets'>
+                <Tickets />
+            </Route>
+
             <Route path='/events'>
                 <Events/>
             </Route>

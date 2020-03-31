@@ -22,8 +22,8 @@ export default function BrainTree(){
         alignItems:'center',
         fontSize:'24px'
       }}>
-        <h2 style={{textTransform:'uppercase',margin:'5px 0px'}}> Donation </h2>
-        <h3 style={{color:'black',fontSize:'26px',margin:'5px 0px'}}>$ {donation} </h3>
+        <h2 style={{textTransform:'uppercase',margin:'5px 0px'}}> Choose an Amount</h2>
+        <h3 style={{color:'black',fontSize:'48px',margin:'5px 0px'}}>$ {donation} </h3>
         <div >
            <button style={{fontSize:'14px'}} onClick={(e)=>setDonation(e.target.value)} value='1'>$1</button>
            <button style={{fontSize:'14px'}} onClick={(e)=>setDonation(e.target.value)} value='5'>$5</button>
@@ -71,7 +71,6 @@ function DropIn({donation}){
 
   useEffect(()=>{
     const button= document.querySelector('#submit-button')
-    document.querySelector('#checkout-message').innerHTML='Loading...';
     
     axios.get('https://pave-backend.herokuapp.com/client_token').then(res=>{
       
@@ -115,9 +114,9 @@ function DropIn({donation}){
                 console.info('Drop-in Ui has been torn down')
                 document.querySelector('#submit-button').setAttribute('style','display:none')
                 if(res.data.success){
-                  document.querySelector('#checkout-message').innerHTML=`<h1>We successfully received your donation of $ ${donation}</h1>`
+                  document.querySelector('#checkout-message').innerHTML=`<h1>We successfully received your donation of $ ${donation}</h1>`.toUpperCase()
                 }else{
-                  document.querySelector('#checkout-message').innerHTML='Sorry something went wrong with your donation.'
+                  document.querySelector('#checkout-message').innerHTML='Sorry something went wrong with your donation.'.toUpperCase()
                 }
               }
 

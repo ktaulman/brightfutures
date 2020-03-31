@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 
 export default function EventBrite(){
 
@@ -6,7 +6,7 @@ export default function EventBrite(){
 
 return(
     <div id='eventbrite-container'>
-    <div id="eventbrite-widget-container-100295540662"></div>
+      <div id="eventbrite-widget-container-100295540662"></div>
     </div>
 )
 }
