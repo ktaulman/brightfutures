@@ -110,9 +110,7 @@ function TextSectionAndDonate(){
 
 return(
     <>
-  
 
- 
     <main style={{
                 display:'flex',
                 flexDirection:'column',
@@ -124,9 +122,6 @@ return(
             id='main'
             >   
              
-   
-              
-
                     <TextSection 
                         label={title||'loading'}
                         body={body||'loading'}
@@ -150,7 +145,7 @@ return(
                             {
                                 textColor:'#000000',
                                 backgroundColor:'#62AC9A',
-                                href:"#",
+                                handleClick:()=>window.open("https://www.eventbrite.com/e/2020-camp-preparing-our-girls-for-center-stage-tickets-100295540662?ref=elink",'_blank'),
                                 label:'Learn More'
                             }
                         ]}

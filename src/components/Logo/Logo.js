@@ -1,4 +1,5 @@
 import React from 'react';
+
 export default function Logo(){
     return( 
         <svg width="325" height="75" viewBox="0 0 231 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -15,7 +16,7 @@ export default function Logo(){
         </clipPath>
         </defs>
         </svg>
-        
+     
     )
 }
 

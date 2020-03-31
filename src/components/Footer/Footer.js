@@ -5,8 +5,11 @@ import './Footer.css'
 export default function Footer ({children}){
     return(
         <footer className='Footer'>
-            PAVE FOUNDATION
-            {children}
+            <p className='Footer__title'>PAVE FOUNDATION</p>
+            
+            <section className="Footer__content">
+                {children}
+            </section>
         </footer>
     )
 }

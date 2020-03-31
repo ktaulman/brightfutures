@@ -18,6 +18,7 @@ export default function ModalWrapper({title,handleClose,children,displayModal}){
                 >X</button>
             </section>
            <section className='ModalWrapper__content'>
+           
              {children}
            </section>
         </main>

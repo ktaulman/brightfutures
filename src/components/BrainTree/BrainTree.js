@@ -73,7 +73,7 @@ function DropIn({donation}){
     const button= document.querySelector('#submit-button')
     document.querySelector('#checkout-message').innerHTML='Loading...';
     
-    axios.get('http://localhost:4000/client_token').then(res=>{
+    axios.get('https://pave-backend.herokuapp.com/client_token').then(res=>{
       
     dropIn.create({
       // authorization: 'sandbox_pgp32rz6_f49wh6h3ckcvv3dh',
@@ -102,7 +102,7 @@ function DropIn({donation}){
       button.addEventListener ('click',function(){
         instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
           console.log(payload)
-          axios.post('http://localhost:4000/checkout',{
+          axios.post('http://pave-backend.herokuapp.com/checkout',{
             payment_method_nonce:payload.nonce,
             donation_amount:donation
           }
