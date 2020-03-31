@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 
-import {Route} from "react-router-dom";
+import {Route, NavLink} from "react-router-dom";
 //Routes 
 import Events from './routes/Events'
 import Blog from './routes/Blog';
@@ -27,7 +27,7 @@ function App(){
     //PASSWORD View
     const [password,setPassword]=useState(null)
     const [error,setError]=useState(null);
-    const [isCorrectPassword,setIsCorrectPassword]=useState(true)
+    const [isCorrectPassword,setIsCorrectPassword]=useState(false);
     const[screenWidth,setScreenWidth]=useState(window.innerWidth)
     //window resize effect 
     useEffect(()=>{
@@ -117,7 +117,14 @@ function App(){
                 <Blog />
             </Route>
             <Footer>
+                <div style={{
+                    display:'flex',
+                }}>
+                <NavLink to='/'>Home</NavLink>
+                <NavLink to='/donate'>Donate</NavLink>
+                <NavLink to='/tickets'>Tickets</NavLink>
                 {/* <NavigationLinks row noBackground style={{fontSize:'16px',color:'#00000'}}/> */}
+                </div>
             </Footer>
       
                 </>

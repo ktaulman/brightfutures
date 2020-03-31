@@ -1,7 +1,6 @@
 import './BrainTree.css';
 import React,{useEffect,useState} from 'react';
 import axios from 'axios';
-const braintree = require('braintree-web');
 const dropIn=require('braintree-web-drop-in')
 
 
@@ -72,9 +71,10 @@ function DropIn({donation}){
 
   useEffect(()=>{
     const button= document.querySelector('#submit-button')
-   
+    document.querySelector('#checkout-message').innerHTML='Loading...';
+    
     axios.get('http://localhost:4000/client_token').then(res=>{
-      document.querySelector('#checkout-message').innerHTML='Loading...';
+      
     dropIn.create({
       // authorization: 'sandbox_pgp32rz6_f49wh6h3ckcvv3dh',
       authorization:res.data,
