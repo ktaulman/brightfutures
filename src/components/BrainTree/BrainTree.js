@@ -10,6 +10,90 @@ export default function BrainTree(){
   const [view,setView]=useState('donation')
   const [otherClicked,setOtherClicked]=useState(false);
 
+  function DropIn({donation}){
+
+    useEffect(()=>{
+      const button= document.querySelector('#submit-button')
+      
+      axios.get('https://pave-backend.herokuapp.com/client_token').then(res=>{
+        
+      dropIn.create({
+        // authorization: 'sandbox_pgp32rz6_f49wh6h3ckcvv3dh',
+        authorization:res.data,
+        container:'#dropin-container',
+        translations:{
+          payingWith: 'Donating with {{paymentSource}}',
+          chooseAnotherWayToPay: 'Choose another way to donate',
+          chooseAWayToPay: 'Choose a way to donate',
+          otherWaysToPay: 'Other ways to donate',
+        },
+        card:{
+          cardholderName:true,
+        },
+        paypal: {
+          flow: 'checkout',
+        },
+       paypalCredit: {
+         flow: 'checkout',
+        },
+        venmo: true
+      },function(createErr,instance){
+        //error handling
+        if(createErr) console.error(createErr)
+        //submit payment method
+        button.addEventListener ('click',function(){
+          instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
+            console.log(payload)
+            axios.post('http://pave-backend.herokuapp.com/checkout',{
+              payment_method_nonce:payload.nonce,
+              donation_amount:donation
+            }
+            )
+            .then(res=>{
+              console.log(document.querySelector('#checkout-message'))
+              instance.teardown((teardownErr)=>{
+                if(teardownErr) console.error('Could no tear down Drop-in UI!');
+                else {
+                  console.info('Drop-in Ui has been torn down')
+                  document.querySelector('#submit-button').setAttribute('style','display:none')
+                  if(res.data.success){
+                    document.querySelector('#checkout-message').innerHTML=`<h1>We successfully received your donation of $ ${donation}</h1>`.toUpperCase()
+                  }else{
+                    document.querySelector('#checkout-message').innerHTML='Sorry something went wrong with your donation.'.toUpperCase()
+                  }
+                }
+  
+                
+              })
+              
+            })
+          })
+        })
+      })
+    })
+  })
+  
+   return(
+     <div id='dropin-wrapper'>
+        <div id='checkout-message'></div>
+        <div id="dropin-container"></div>
+        <button 
+          style={{ 
+            padding:'5px 10px',
+            outline:'none',
+            border:'none', 
+            fontSize:'14px',
+            backgroundColor: "rgb(126, 98, 172)",
+            color:'#FFFFFF'
+          }}
+          id="submit-button">
+          Submit Donation</button>
+     </div>
+   )
+  }
+
+
+
   if(view==='donation'){
     
 
@@ -67,87 +151,7 @@ export default function BrainTree(){
   }
 }
 
-function DropIn({donation}){
 
-  useEffect(()=>{
-    const button= document.querySelector('#submit-button')
-    
-    axios.get('https://pave-backend.herokuapp.com/client_token').then(res=>{
-      
-    dropIn.create({
-      // authorization: 'sandbox_pgp32rz6_f49wh6h3ckcvv3dh',
-      authorization:res.data,
-      container:'#dropin-container',
-      translations:{
-        payingWith: 'Donating with {{paymentSource}}',
-        chooseAnotherWayToPay: 'Choose another way to donate',
-        chooseAWayToPay: 'Choose a way to donate',
-        otherWaysToPay: 'Other ways to donate',
-      },
-      card:{
-        cardholderName:true,
-      },
-      paypal: {
-        flow: 'checkout',
-      },
-     paypalCredit: {
-       flow: 'checkout',
-      },
-      venmo: true
-    },function(createErr,instance){
-      //error handling
-      if(createErr) console.error(createErr)
-      //submit payment method
-      button.addEventListener ('click',function(){
-        instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
-          console.log(payload)
-          axios.post('http://pave-backend.herokuapp.com/checkout',{
-            payment_method_nonce:payload.nonce,
-            donation_amount:donation
-          }
-          )
-          .then(res=>{
-            console.log(document.querySelector('#checkout-message'))
-            instance.teardown((teardownErr)=>{
-              if(teardownErr) console.error('Could no tear down Drop-in UI!');
-              else {
-                console.info('Drop-in Ui has been torn down')
-                document.querySelector('#submit-button').setAttribute('style','display:none')
-                if(res.data.success){
-                  document.querySelector('#checkout-message').innerHTML=`<h1>We successfully received your donation of $ ${donation}</h1>`.toUpperCase()
-                }else{
-                  document.querySelector('#checkout-message').innerHTML='Sorry something went wrong with your donation.'.toUpperCase()
-                }
-              }
-
-              
-            })
-            
-          })
-        })
-      })
-    })
-  })
-},[])
-
- return(
-   <div id='dropin-wrapper'>
-      <div id='checkout-message'></div>
-      <div id="dropin-container"></div>
-      <button 
-        style={{ 
-          padding:'5px 10px',
-          outline:'none',
-          border:'none', 
-          fontSize:'14px',
-          backgroundColor: "rgb(126, 98, 172)",
-          color:'#FFFFFF'
-        }}
-        id="submit-button">
-        Submit Donation</button>
-   </div>
- )
-}
 // }
 // function HostedFields(){
 

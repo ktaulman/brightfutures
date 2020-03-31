@@ -7,10 +7,14 @@ export default function Tickets(){
     script.async=true;
     document.body.appendChild(script)
     console.log(window.EBWidgets)
-    console.log('headacchhhhheeeeeeeee')
+
+    window.EBWidgets.createWidget({
+
+    })
+
     return(
         <>
-
+            
         </>
     )
 }
