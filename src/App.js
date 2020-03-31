@@ -28,7 +28,7 @@ function App(){
     //PASSWORD View
     const [password,setPassword]=useState(null)
     const [error,setError]=useState(null);
-    const [isCorrectPassword,setIsCorrectPassword]=useState(true);
+    const [isCorrectPassword,setIsCorrectPassword]=useState(false);
     const[screenWidth,setScreenWidth]=useState(window.innerWidth)
     //window resize effect 
     useEffect(()=>{
