@@ -142,3 +142,6 @@ font-face {
     height:100%;
     position:relative;
   }
+  .number{
+    font-size:12px;
+  }

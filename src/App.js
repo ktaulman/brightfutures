@@ -19,6 +19,7 @@ import './index.css'
 
 import ModalWrapper from './components/ModalWrapper/ModalWrapper';
 
+import BrainTree from './components/BrainTree/BrainTree'
 
 function App(){
 
@@ -73,14 +74,18 @@ function App(){
     //modal logic
     function openModal(){
         setDisplayModal(true)
+        document.getElementById('main').classList.add('--opacity')
     }
     function closeModal(){
         setDisplayModal(false)
+        document.getElementById('main').classList.remove('--opacity')
     }
 
    
     return(
         <>
+    
+       
         <ModalWrapper   
             displayModal={displayModal}
             handleClose={closeModal}
@@ -100,7 +105,7 @@ function App(){
                 
                 }
             </Header>
-
+           
             <Route exact path='/'>
                 <Home openModal={openModal}/>
             </Route>

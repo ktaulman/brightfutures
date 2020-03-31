@@ -10,11 +10,28 @@
       <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
       <link rel='stylesheet' href='./style.css'type='text/css'>
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- <script src="https://js.braintreegateway.com/web/dropin/1.22.1/js/dropin.min.js"></script> -->
+      
+
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div class='root' id="root"></div>
 
+    <!-- <script>
+      var button = document.querySelector('#submit-button');
+  
+      braintree.dropin.create({
+        authorization: 'CLIENT_TOKEN_FROM_SERVER',
+        container: '#dropin-container'
+      }, function (createErr, instance) {
+        button.addEventListener('click', function () {
+          instance.requestPaymentMethod(function (err, payload) {
+            // Submit payload.nonce to your server
+          });
+        });
+      });
+    </script> -->
     <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
     
     <script type="text/javascript">

@@ -20,7 +20,7 @@ export default function TextSection({label,body,color,centerAll,sameColorAll,hre
             >
                 {body}
             </p>
-            <a href={href} target='_blank' style={{color:"#45494E"}} rel="noopener noreferrer">{linkTitle}</a>
+            <a href={href} target='_blank' style={{color:"#45494E",fontSize:'24px'}} rel="noopener noreferrer">{linkTitle}</a>
         </div>
     )
 }

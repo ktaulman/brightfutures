@@ -19,8 +19,8 @@ import facebookSVG from '../components/SocialLinks/facebook.svg';
 
 
 //have Modal Context available
-import {useModalContext} from '../context/ModalContext';
-
+// import {useModalContext} from '../context/ModalContext';
+import BrainTree from '../components/BrainTree/BrainTree'
 
 //contentful CMS 
 const contentful=require('contentful')
@@ -94,10 +94,23 @@ export default function Home({openModal}){
 
 //Setup modal being clicked 
 
+function TextSectionAndDonate(){
+    return(
+        <>
+            <TextSection
+                label='How to Donate'
+                body='Pledge an amount below start the donation process'
+                color='#7E62AC'
+            />
+            <BrainTree/>
+
+        </>
+    )
+}
 
 return(
     <>
-
+  
 
  
     <main style={{
@@ -117,7 +130,6 @@ return(
                     <TextSection 
                         label={title||'loading'}
                         body={body||'loading'}
-                        // handleRender={}
                     />
 
                     <Spacer height='10px'/>
@@ -151,17 +163,14 @@ return(
                         {
                             backgroundColor:'#7E62AC',
                             label:'Donate',
-                            component:<TextSection
-                                label='How to Donate'
-                                body='See below that our Stripe payment systtem can take cash check and other forms of materials.'
-                                color='#7E62AC'
-                            />,
+                            component:<TextSectionAndDonate/>,
                             
                         },
                         {
                             backgroundColor:"#AC9562",
                             label:'Events',
                             component:<TextSection 
+                                color='rgb(172, 149, 98)'
                                 label='Our Upcoming Events'
                                 body=''
                                 href="https://www.eventbrite.com/e/2020-camp-preparing-our-girls-for-center-stage-tickets-100295540662?ref=elink" 
@@ -172,12 +181,7 @@ return(
                         {
                             backgroundColor:"#AC6F62",
                             label:'Volunteer',
-                            component:<TextSection
-                                label='How to Volunteer'
-                                body='We would like to have as many volunteers for our upcoming events as possible. Sign up today to hear frrom our team. '
-                                color='#AC6F62'
-                                
-                            />
+                            component:<MailingListForm label={"Sign Up to Be a Volunteer"}/> 
                         }
                     ]
                 }
@@ -192,8 +196,6 @@ return(
             />
 
             <Spacer height='10px'/>
-
-            <MailingListForm label={"Sign Up for Our Mailing List"} />
 
             <Spacer height='10px'/>
 
