@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 
-import {Route, NavLink} from "react-router-dom";
+import {Route, NavLink,useLocation,useRouteMatch} from "react-router-dom";
 //Routes 
 import Events from './routes/Events'
 import Blog from './routes/Blog';
@@ -20,15 +20,24 @@ import './index.css'
 
 import ModalWrapper from './components/ModalWrapper/ModalWrapper';
 
-import BrainTree from './components/BrainTree/BrainTree'
-
 function App(){
+    //React Router
+    const location=useLocation();
+    const {path,url}=useRouteMatch();
+    console.log('LINE 27 APP')
+    console.log("LOCATION")
+    console.log(location)
+    console.log('PATH')
+    console.log(path)
+    console.log('URL')
+    console.log(url)
+
 
     const[displayModal,setDisplayModal]=useState(false);
     //PASSWORD View
     const [password,setPassword]=useState(null)
     const [error,setError]=useState(null);
-    const [isCorrectPassword,setIsCorrectPassword]=useState(false);
+    const [isCorrectPassword,setIsCorrectPassword]=useState(true);
     const[screenWidth,setScreenWidth]=useState(window.innerWidth)
     //window resize effect 
     useEffect(()=>{
@@ -72,6 +81,11 @@ function App(){
         </div>
         )
     }
+
+
+
+
+
     //modal logic
     function openModal(){
         setDisplayModal(true)
@@ -85,7 +99,6 @@ function App(){
    
     return(
         <>
-    
        
         <ModalWrapper   
             displayModal={displayModal}
@@ -95,7 +108,7 @@ function App(){
             <div id="eventbrite-widget-container-100295540662"></div>
         </ModalWrapper>
             <Header>
-                <NavLink to='/'><Logo/></NavLink>
+                <NavLink to={url}><Logo/></NavLink>
                 
                {
                     screenWidth<=700?
@@ -107,11 +120,12 @@ function App(){
                 }
             </Header>
            
-            <Route exact path='/'>
+            <Route exact path={path}>
                 <Home openModal={openModal}/>
             </Route>
             
-            <Route path='/donate'>
+            <Route path={path+'/donate'}>
+                DONATE
                 <Donate/>
             </Route>
             <Route path='/tickets'>

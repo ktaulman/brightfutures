@@ -1,0 +1,19 @@
+.Preview{
+    width:100%;
+}
+.Preview__nav{
+    display:flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    width:100%;
+}
+.Preview__link{
+    text-decoration: none;
+    color:blue;
+}
+.Preview__link:hover{
+    pointer:cursor;
+    text-decoration:underline;
+}
