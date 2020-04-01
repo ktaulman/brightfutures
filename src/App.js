@@ -37,7 +37,7 @@ function App(){
         }
         window.addEventListener('resize',handleResize)
     })
-
+    //COMMMENT
     const openPassword=process.env.REACT_APP_OPEN_PASSWORD
     function handlePasswordSubmit(){
         if(password===openPassword){
