@@ -38,8 +38,9 @@ function App(){
     const [password,setPassword]=useState(null)
     const [error,setError]=useState(null);
     const [isCorrectPassword,setIsCorrectPassword]=useState(true);
-    const[screenWidth,setScreenWidth]=useState(window.innerWidth)
-    //window resize effect 
+   
+    //window resize effect
+    const[screenWidth,setScreenWidth]=useState(window.innerWidth) 
     useEffect(()=>{
         function handleResize(){
             setScreenWidth(window.innerWidth)

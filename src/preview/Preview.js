@@ -154,7 +154,7 @@ function DisplayContactInformation(){
 
     //Contact Information 
     content.getEntry("4MRX3nqYjh3A3EbRNSIPxk").then(entry=>{    
-       
+       console.log(entry.fields)
         const{telephoneNumber,emailAddress,mailingAddress}=entry.fields;
         setPhone(telephoneNumber);
         setEmail(emailAddress);
@@ -170,9 +170,15 @@ function DisplayContactInformation(){
     )
 }
 function PreviewNav(){
+    console.log('function called')
+    //VARIABLES
+    //
     const {url}=useRouteMatch();
+    //STATES 
+    //
+    //Set Fonts
     const [font,setFont]=useState('Open Sans')
-
+    //Effect for Updating Buttons since they default to their own unique font.
     useEffect(()=>{
         const arr=Array.from(document.getElementsByClassName('FeatureCard__button'));
         arr.forEach(el=>{
@@ -180,8 +186,28 @@ function PreviewNav(){
         })
     },[font])
 
+    //Set Spacer component so fixed menu doesn't cut off text.
+    const [topNavHeight,setTopNavHeight]=useState(null);
+  
+    useEffect(()=>{
+        console.log('component mount')
+        function handleResize(){
+            const fixedHeader=document.getElementById('PreviewNav')
+            setTopNavHeight(fixedHeader.scrollHeight)
+        }
+        //run initially on mount
+        handleResize();
+        //add eventListener to window for resize
+        window.addEventListener('resize',handleResize)
+      
+    },[])
+    //RENDERING
+    //
+    //
+
     return(
-    <div className="PreviewNav" >
+    <>
+    <div id='PreviewNav'className="PreviewNav">
     <div>
             PREVIEW NAVIGATION
         </div>
@@ -195,8 +221,7 @@ function PreviewNav(){
         <Link  className={'Preview__link'}to={url+'/socialMediaLinks'}>socialMediaLinks</Link>
         <Link  className={'Preview__link'}to={url+'/4MRX3nqYjh3A3EbRNSIPxk'}>contactInformation</Link>
     </nav>
-    
-    <Spacer height={'5px'}/>
+    <Spacer height={topNavHeight}/>
     
     <div className="fontPick"> 
            <label className="fontPick__label">Font Picker:</label>
@@ -213,7 +238,7 @@ function PreviewNav(){
                 style={{
                      
                         fontSize:'12px',
-                        padding:'5px 5px',
+                        padding:'0',
                         marginLeft:'10px'
                     }}
                 handleClick={()=>{
@@ -223,25 +248,24 @@ function PreviewNav(){
                 backgroundColor='green'
              />
         </div>
-        <hr/>
     </div>
+    <Spacer height={`${(topNavHeight/2)+2}px`} id={'PreviewNav-Spacer'}/>
+    </>
     )
 }
 
 export default function Preview(){
    
     const {path}=useRouteMatch();
-   
+
     return(
         <>
         <PreviewNav/>
-        <div id="Preview" className='Preview apply-font'>
-                                  
+        <div id="Preview" className='Preview apply-font'>          
         <Route exact path={path}>
 
-            <Spacer height='30px' />
                 <h1>Content Type:N/A,Whole Page Display</h1>
-                <Header style={{background:'white',marginTop:'100px',position:'relative'}}>
+                <Header style={{background:'white',position:'relative'}}>
                     <DisplayLogo/>
                     <NavigationLinks noBackground/>
                 </Header>
@@ -252,7 +276,6 @@ export default function Preview(){
                         flexDirection:'column',
                         justifyContent:'flex-start',
                         alignItems:'center',
-                        marginTop:"100px",
                         width:'100vw'
                     }}
                 >   
