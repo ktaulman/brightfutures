@@ -140,10 +140,7 @@ font-face {
 }
 
 
-*, *>div{
-  font-family:'Roboto-light',"Roboto";
-  font-weight:100;
-}
+
 body{
   width:100%;
 }

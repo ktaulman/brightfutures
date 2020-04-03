@@ -6,23 +6,46 @@ import {Route, Link,useLocation,useRouteMatch,Switch} from "react-router-dom";
 
 //components
 import TextSection from '../components/TextSection/TextSection';
-import Spacer from '../components/Spacer/Spacer'
+import Spacer from '../components/Spacer/Spacer';
+import Logo from '../components/Logo/Logo';
+import FeatureCard from '../components/FeatureCard/FeatureCard';
+import SocialLinks from '../components/SocialLinks/SocialLinks';
+import ContactInfo from '../components/ContactInfo/ContactInfo';
+import Button from '../components/Button/Button';
+//Header Components
+import Header from '../components/Header/Header';
+import NavigationLinks from '../components/NavigationLinks/NavigationLinks'
+//Non-Preview Content.
+import FontPicker from 'font-picker-react';
+import Footer from '../components/Footer/Footer'
+
+//import CSS 
 import './preview.css'
 
 //Contentful CMS 
 const contentful=require('contentful')
 const content= contentful.createClient({
     space:process.env.REACT_APP_CONTENTFUL_SPACE_ID,
-    accessToken:process.env.REACT_APP_CONTENTFUL_API_KEY
+    accessToken:process.env.REACT_APP_CONTENTFUL_PREVIEW_API_KEY,
+    host:'preview.contentful.com'
 })
+function DisplayLogo(){
+    const [logoURL,setLogoURL]=useState(null)
+    useEffect(()=>{
+        content.getEntry('3NsR5rAC9LfDlmWyTrmJpq').then(res=>setLogoURL(res.fields.logo.fields.file.url))
+    },[])
+    return(
+        <Logo url={logoURL}/> 
+    )
+}
 
-function MissionStatement (){
+function DisplayMissionStatement (){
     const[titleMission,setTitleMission]=useState(null);
     const[bodyMission,setBodyMission]=useState(null);
-
+   
     useEffect(()=>{
         content.getEntry('6XkSCISzGt8d0R5ubciAwA').then(res=>{
-            console.log(res.fields)
+    
             const {title,textBody}=res.fields;
             setTitleMission(title);
             setBodyMission(textBody);
@@ -30,61 +53,254 @@ function MissionStatement (){
 
     })
     return(
+        <>
+       
         <TextSection
             label={titleMission}
             body={bodyMission}
         />
+        </>
     )
 }
-export default function Preview(){
-   
-    const {path,url}=useRouteMatch();
-    //Set MissionStatement
-    
+
+function DisplayFeatureCard(){
+     //set FeatureCard 
+     const[backgroundFeatureCard,setBackgroundFeatureCard]=useState(null);
+     const[titleFeatureCard,setTitleFeatureCard]=useState(null);
+     const[captionFeatureCard,setCaptionFeatureCard]=useState(null);
+     const[detailsFeatureCard,setDetailsFeatureCard]=useState(null);
+     const[buttonOneLabelFeatureCard,setButtonOneLabelFeatureCard]=useState(null);
+     const[buttonTwoLabelFeatureCard,setButtonTwoLabelFeatureCard]=useState(null);
+     const[buttonOneURLFeatureCard,setButtonOneURLFeatureCard]=useState(null);
+     const[buttonTwoURLFeatureCard,setButtonTwoURLFeatureCard]=useState(null)
+    content.getEntry("XfArvtJCRzAdQzyZgIWbv").then(res=>{
+        
+        const {title,caption,details,buttonOneLabel,buttonTwoLabel,buttonOneURL,buttonTwoURL}= res.fields;
+        setBackgroundFeatureCard(res.fields.backgroundImage.fields.file.url)
+        setTitleFeatureCard(title);
+        setCaptionFeatureCard(caption);
+        setDetailsFeatureCard(details);
+        setButtonOneLabelFeatureCard(buttonOneLabel);
+        setButtonTwoLabelFeatureCard(buttonTwoLabel);
+        setButtonTwoURLFeatureCard(buttonTwoURL);
+    })
+    return(
+        <FeatureCard
+        backgroundImageURL={backgroundFeatureCard}
+        title={titleFeatureCard}
+        caption={captionFeatureCard}
+        description={detailsFeatureCard}
+        buttonsArray={[
+            {
+                textColor:'#FFFFFF',
+                backgroundColor:'rgb(172, 149, 98)',
+                label:buttonOneLabelFeatureCard,
+                handleClick:()=>window.open("https://www.eventbrite.com/e/2020-camp-preparing-our-girls-for-center-stage-tickets-100295540662?ref=elink",'_blank'),
+            },
+            {
+                textColor:'#000000',
+                backgroundColor:'#62AC9A',
+                label:buttonTwoLabelFeatureCard,
+                handleClick:()=>window.open(buttonTwoURLFeatureCard,'_blank')
+            }
+        ]}
+    /> 
+    )
+}
+
+function DisplaySocialMediaLinks(){
+    //SocialLinks Media
+        const twitterSVG=require('../components/SocialLinks/twitter.svg') ;
+        const instagramSVG=require('../components/SocialLinks/instagram.svg')
+        const facebookSVG=require('../components/SocialLinks/facebook.svg');
+     //set socialMediaLinks
+     const [twitter,setTwitterUrl]=useState(null);
+     const [facebook,setFacebookUrl]=useState(null);
+     const [instagram,setInstagramUrl]=useState(null);
+    useEffect(()=>{
+        content.getEntry('2mSBA7L23BOJyXJwUuF4I').then(res=>{
+           const{twitterUrl, facebookUrl,instagramUrl }=res.fields;
+           setTwitterUrl(twitterUrl)
+           setFacebookUrl(facebookUrl)
+           setInstagramUrl(instagramUrl)
+       })
+    })
+    return(
+        <SocialLinks
+            label='Get Connected'
+            iconsArray={[
+                {
+                    href:twitter,
+                    svg:twitterSVG
+                },
+                {
+                    href:facebook,
+                    svg:facebookSVG
+                },
+                {
+                    href:instagram,
+                    svg:instagramSVG
+                }
+            ]}
+
+        />
+    )
+}
+function DisplayContactInformation(){
+    //set Contact Information
+    const [phone,setPhone]=useState(null);
+    const [email,setEmail]=useState(null);
+    const [mailing,setMailing]=useState(null);
+
+    //Contact Information 
+    content.getEntry("4MRX3nqYjh3A3EbRNSIPxk").then(entry=>{    
+       
+        const{telephoneNumber,emailAddress,mailingAddress}=entry.fields;
+        setPhone(telephoneNumber);
+        setEmail(emailAddress);
+        setMailing(mailingAddress)
+    })
 
     return(
-        <div className='Preview'>
-            <h1>Contentful Preview</h1>
-            <hr/>
+        <ContactInfo 
+            phone={phone}
+            email={email}
+            mailing={mailing}
+        />
+    )
+}
+function PreviewNav(){
+    const {url}=useRouteMatch();
+    const [font,setFont]=useState('Open Sans')
+
+    useEffect(()=>{
+        const arr=Array.from(document.getElementsByClassName('FeatureCard__button'));
+        arr.forEach(el=>{
+            el.style.fontFamily=font;
+        })
+    },[font])
+
+    return(
+    <div className="PreviewNav" >
+    <div>
+            PREVIEW NAVIGATION
+        </div>
+    <nav className='Preview__nav '>
+        
+        <Link  className={'Preview__link'}to={url}>Home</Link>
+        <Link className={'Preview__link'} to={url+"/3NsR5rAC9LfDlmWyTrmJpq"}>Logo</Link>
+        <Link  className={'Preview__link'}to={url+'/topNavBar'}>topNavBar</Link>
+        <Link  className={'Preview__link'}to={url+'/6XkSCISzGt8d0R5ubciAwA'}>MissionStatement</Link>
+        <Link  className={'Preview__link'}to={url+'/banner'}>Home Page Banner</Link>
+        <Link  className={'Preview__link'}to={url+'/socialMediaLinks'}>socialMediaLinks</Link>
+        <Link  className={'Preview__link'}to={url+'/4MRX3nqYjh3A3EbRNSIPxk'}>contactInformation</Link>
+    </nav>
+    
+    <Spacer height={'5px'}/>
+    
+    <div className="fontPick"> 
+           <label className="fontPick__label">Font Picker:</label>
+
+            <FontPicker
+                apiKey={process.env.REACT_APP_GOOGLE_FONTS_API_KEY}
+                activeFontFamily={font}
+                onChange={(nextFont)=>{setFont(nextFont.family)}}
+                sort='popularity'
+            />
             
-            <nav className='Preview__nav'>
-                <Link  className={'Preview__link'}to={url}>Home</Link>
-                
-                <Link  className={'Preview__link'}to={url+'/logo'}>Logo</Link>
-                <Link  className={'Preview__link'}to={url+'/topNavBar'}>topNavBar</Link>
-                <Link  className={'Preview__link'}to={url+'/6XkSCISzGt8d0R5ubciAwA'}>MissionStatement</Link>
-                <Link  className={'Preview__link'}to={url+'/banner'}>Home Page Banner</Link>
-                <Link  className={'Preview__link'}to={url+'/socialMediaLinks'}>socialMediaLinks</Link>
-                <Link  className={'Preview__link'}to={url+'/contactInformation'}>contactInformation</Link>
-            </nav>
-      
-            <Spacer height={'20px'}/>   
-            <Route path={path+'/6XkSCISzGt8d0R5ubciAwA'}>
-                Mission Statement
-                <MissionStatement/>
+            <Button
+                label='PUBLISH TO LIVE PAGE'
+                style={{
+                     
+                        fontSize:'12px',
+                        padding:'5px 5px',
+                        marginLeft:'10px'
+                    }}
+                handleClick={()=>{
+                    console.log(e=>e.target);
+                }}
+                color='white'
+                backgroundColor='green'
+             />
+        </div>
+        <hr/>
+    </div>
+    )
+}
+
+export default function Preview(){
+   
+    const {path}=useRouteMatch();
+   
+    return(
+        <>
+        <PreviewNav/>
+        <div id="Preview" className='Preview apply-font'>
+                                  
+        <Route exact path={path}>
+
+            <Spacer height='30px' />
+                <h1>Content Type:N/A,Whole Page Display</h1>
+                <Header style={{background:'white',marginTop:'100px',position:'relative'}}>
+                    <DisplayLogo/>
+                    <NavigationLinks noBackground/>
+                </Header>
+
+             <main 
+                    style={{
+                        display:'flex',
+                        flexDirection:'column',
+                        justifyContent:'flex-start',
+                        alignItems:'center',
+                        marginTop:"100px",
+                        width:'100vw'
+                    }}
+                >   
+                <DisplayMissionStatement/>
+                <DisplayFeatureCard/>
+                {/* <DropDownMenu/> */}
+                <DisplayContactInformation/>
+
+                <Footer>
+                    <h1>Pave Foundation</h1> 
+                </Footer>
+            </main>
+            </Route>
+            
+        <Route path={path+'/3NsR5rAC9LfDlmWyTrmJpq'}>
+               <h1>Content Type: Logo</h1> 
+                <br/>
+                <DisplayLogo />
+        </Route>
+
+        <Route path={path+'/topNavBar'}>
+                <h1>Content Type:topNavBar</h1> 
+               
+        </Route>
+
+        <Route path={path+'/6XkSCISzGt8d0R5ubciAwA'}>
+                 <h1>Content Type: MissionStatement</h1> 
+                <DisplayMissionStatement/>
             </Route>
 
-            <Route path={path+'/banner'}>
-                banner
+        <Route path={path+'/banner'}>
+                <h1>Content Type:Home Page Banner</h1>
+                <DisplayFeatureCard />
             </Route>
 
-            <Route path={path+'/socialMediaLinks'}>
-                socialMediaLinks
+        <Route path={path+'/socialMediaLinks'}>
+                <h1>Content Type:Social Media LInks</h1>
+                <DisplaySocialMediaLinks/>
+            </Route>
+  
+        <Route path={path+'/4MRX3nqYjh3A3EbRNSIPxk'}>
+                <h1>Content Type: ContactInfo</h1>
+                <DisplayContactInformation/>
             </Route>
            
         </div>
+        </>
     )
 }
 
       
-            {/* <Route exact path={path}>
-                HOME
-            </Route>
-
-            <Route path={path+'/logo'}>
-                
-            </Route>
-
-            <Route path={path+'/topNavBar'}>
-                Top Nav Bar
-            </Route> */}

@@ -43,7 +43,12 @@ export default function Home({openModal}){
     const[backgroundFeatureCard,setBackgroundFeatureCard]=useState(null);
     const[titleFeatureCard,setTitleFeatureCard]=useState(null);
     const[captionFeatureCard,setCaptionFeatureCard]=useState(null);
-    const[detailsFeatureCard,setDetailsFeatureCard]=useState(null)
+    const[detailsFeatureCard,setDetailsFeatureCard]=useState(null);
+    const[buttonOneLabelFeatureCard,setButtonOneFeatureCard]=useState(null);
+    const[buttonTwoLabelFeatureCard,setButtonTwoFeatureCard]=useState(null);
+    // const[buttonOneURLFeatureCard,setButtonOneURLFeatureCard]=useState(null);
+    // const[buttonTwoURLFeatureCard,setButtonTwoURLFeatureCard]=useState(null);
+
     //set socialMediaLinks
     const [twitter,setTwitterUrl]=useState(null);
     const [facebook,setFacebookUrl]=useState(null);
@@ -62,17 +67,19 @@ export default function Home({openModal}){
         })
         //featurecard
         content.getEntry("XfArvtJCRzAdQzyZgIWbv").then(res=>{
-            const {title,caption,details}= res.fields;
+            const {title,caption,details,buttonOneLabel,buttonTwoLabel}= res.fields;
             setBackgroundFeatureCard(res.fields.backgroundImage.fields.file.url)
             setTitleFeatureCard(title);
             setCaptionFeatureCard(caption)
             setDetailsFeatureCard(details)
+            setButtonOneFeatureCard(buttonOneLabel)
+            setButtonTwoFeatureCard(buttonTwoLabel)
+        })
         //socialMediaLinks
         content.getEntry('2mSBA7L23BOJyXJwUuF4I').then(res=>{
             const{twitterUrl, facebookUrl,instagramUrl }=res.fields;
             setTwitterUrl(twitterUrl)
             setFacebookUrl(facebookUrl)
-
             setInstagramUrl(instagramUrl)
         })
         //Contact Information 
@@ -82,7 +89,7 @@ export default function Home({openModal}){
             setEmail(emailAddress);
             setMailing(mailingAddress)
         })
-        })
+        
 
     },[])
 
@@ -140,15 +147,15 @@ return(
                             {
                                 textColor:'#FFFFFF',
                                 backgroundColor:'rgb(172, 149, 98)',
-                                label:'Buy Tickets',
-                                
+                                label:buttonOneLabelFeatureCard,
                                 handleClick:openModal
                             },
                             {
                                 textColor:'#000000',
                                 backgroundColor:'#62AC9A',
+                                label:buttonTwoLabelFeatureCard,
                                 handleClick:()=>window.open("https://www.eventbrite.com/e/2020-camp-preparing-our-girls-for-center-stage-tickets-100295540662?ref=elink",'_blank'),
-                                label:'Learn More'
+                               
                             }
                         ]}
                     /> 

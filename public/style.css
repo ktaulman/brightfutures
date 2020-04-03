@@ -131,10 +131,7 @@ font-face {
   
   
   
-  *, *>div{
-    font-family:'Roboto-light',"Roboto";
-    font-weight:100;
-  }
+
   html{
     padding:3px;
     margin:0;
@@ -142,6 +139,4 @@ font-face {
     height:100%;
     position:relative;
   }
-  .number{
-    font-size:12px;
-  }
+ 

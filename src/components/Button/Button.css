@@ -1,7 +1,6 @@
 .Button{
-    font-family:'Roboto';
     text-transform:uppercase;
     margin:5px 0px;
-    font-size:28px;
     padding:3px 10px;
+    width:250px;
 }

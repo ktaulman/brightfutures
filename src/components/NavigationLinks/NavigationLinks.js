@@ -12,7 +12,6 @@ export default function NavigationNavLinks({row,column,noBackground,color,childr
             style={{
                 flexDirection:row?'row':column?'column':'row',
                 backgroundColor:noBackground?'none':'#62AC9A',
-                
                 }}
         >
 
