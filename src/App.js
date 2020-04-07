@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 
-import {Route, NavLink,useLocation,useRouteMatch} from "react-router-dom";
+import {Route, NavLink,useRouteMatch} from "react-router-dom";
 //Routes 
 import Events from './routes/Events'
 import Blog from './routes/Blog';
@@ -23,8 +23,8 @@ import ModalWrapper from './components/ModalWrapper/ModalWrapper';
 const contentful=require('contentful')
 const content= contentful.createClient({
     space:process.env.REACT_APP_CONTENTFUL_SPACE_ID,
-    accessToken:process.env.REACT_APP_CONTENTFUL_PREVIEW_API_KEY,
-    host:'preview.contentful.com'
+    accessToken:process.env.REACT_APP_CONTENTFUL_DELIVERY_API_KEY,
+    host:'cdn.contentful.com'
 })
 //font loader
 var WebFont = require('webfontloader');
@@ -35,7 +35,6 @@ var WebFont = require('webfontloader');
 
 function App(){
     //React Router
-    const location=useLocation();
     const {path,url}=useRouteMatch();
     
     //Font State 

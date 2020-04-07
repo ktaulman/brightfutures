@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 
 
-import {Route, Link,useLocation,useRouteMatch,Switch,NavLink} from "react-router-dom";
+import {Route, Link,useRouteMatch,NavLink} from "react-router-dom";
 
 
 //components
@@ -23,21 +23,22 @@ import Footer from '../components/Footer/Footer'
 import './preview.css'
 
 //Contentful CMS 
+//
 const contentful=require('contentful')
+const contentful_M=require('contentful-management')
 // //preview
 const contentPreview= contentful.createClient({
     space:process.env.REACT_APP_CONTENTFUL_SPACE_ID,
     accessToken:process.env.REACT_APP_CONTENTFUL_PREVIEW_API_KEY,
-    host:'preview.contentful.com'
+    host:'preview.contentful.com',
+    hostUpload:'uploaded.contentful.com'
 })
 // //management
-const contentManagement=contentful.createClient({
-    space:process.env.REACT_APP_CONTENTFUL_SPACE_ID,
+const contentManagement=contentful_M.createClient({
     accessToken:process.env.REACT_APP_CONTENTFUL_MANAGEMENT_API_KEY,
-    host:'api.contentful.com'
 })
-
-
+//
+//
 function DisplayLogo(){
     const [logoURL,setLogoURL]=useState(null)
     useEffect(()=>{
@@ -80,11 +81,11 @@ function DisplayFeatureCard(){
      const[detailsFeatureCard,setDetailsFeatureCard]=useState(null);
      const[buttonOneLabelFeatureCard,setButtonOneLabelFeatureCard]=useState(null);
      const[buttonTwoLabelFeatureCard,setButtonTwoLabelFeatureCard]=useState(null);
-     const[buttonOneURLFeatureCard,setButtonOneURLFeatureCard]=useState(null);
+    //  const[buttonOneURLFeatureCard,setButtonOneURLFeatureCard]=useState(null);
      const[buttonTwoURLFeatureCard,setButtonTwoURLFeatureCard]=useState(null)
     contentPreview.getEntry("XfArvtJCRzAdQzyZgIWbv").then(res=>{
         
-        const {title,caption,details,buttonOneLabel,buttonTwoLabel,buttonOneURL,buttonTwoURL}= res.fields;
+        const {title,caption,details,buttonOneLabel,buttonTwoLabel,buttonTwoURL}= res.fields;
         setBackgroundFeatureCard(res.fields.backgroundImage.fields.file.url)
         setTitleFeatureCard(title);
         setCaptionFeatureCard(caption);
@@ -163,7 +164,6 @@ function DisplayContactInformation(){
 
     //Contact Information 
     contentPreview.getEntry("4MRX3nqYjh3A3EbRNSIPxk").then(entry=>{    
-       console.log(entry.fields)
         const{telephoneNumber,emailAddress,mailingAddress}=entry.fields;
         setPhone(telephoneNumber);
         setEmail(emailAddress);
@@ -179,14 +179,20 @@ function DisplayContactInformation(){
     )
 }
 function PreviewNav(){
-    console.log('function called')
+
     //VARIABLES
     //
     const {url}=useRouteMatch();
     //STATES 
     //
     //Set Fonts
-    const [font,setFont]=useState('Open Sans')
+    const [font,setFont]=useState(null)
+    //fetch font from Contenful for contentpicker
+    useEffect(()=>{
+        contentPreview.getEntry('3M7edk6wN4UrT9q8Ok93CA').then(entry=>setFont(entry.fields.font))
+    },[])
+   
+
     //Effect for Updating Buttons since they default to their own unique font.
     useEffect(()=>{
         const arr=Array.from(document.getElementsByClassName('FeatureCard__button'));
@@ -199,7 +205,6 @@ function PreviewNav(){
     const [topNavHeight,setTopNavHeight]=useState(null);
   
     useEffect(()=>{
-        console.log('component mount')
         function handleResize(){
             const fixedHeader=document.getElementById('PreviewNav')
             setTopNavHeight(fixedHeader.scrollHeight)
@@ -232,18 +237,20 @@ function PreviewNav(){
     </nav>
     <Spacer height={topNavHeight}/>
     
-    <div className="fontPick"> 
-           <label className="fontPick__label">Font Picker:</label>
-
+   <div className="fontPick"> 
+         {font? 
+            <>
+            <label className="fontPick__label">Font Picker:</label>
             <FontPicker
                 apiKey={process.env.REACT_APP_GOOGLE_FONTS_API_KEY}
                 activeFontFamily={font}
                 onChange={(nextFont)=>{setFont(nextFont.family)
-                console.log(nextFont,nextFont.family)
                 }}
                 sort='popularity'
             />
-            
+            </>
+            :null
+            }
             <Button
                 label='PUBLISH TO LIVE PAGE'
                 style={{
@@ -253,7 +260,16 @@ function PreviewNav(){
                         marginLeft:'10px'
                     }}
                 handleClick={()=>{
-                    
+                        contentManagement
+                            .getSpace("8hea45tlyfai")
+                            .then(space=>space.getEnvironment('master'))
+                            .then(env=>env.getEntry('3M7edk6wN4UrT9q8Ok93CA'))
+                            .then(entry=>{
+                                entry.fields.font['en-US']=font;
+                                return entry.update()
+                            })
+                            .then(res=>console.log(`Entry ${res.sys.id} has been successfully updated.`))
+                            .catch(console.error)   
                 }}
                 color='white'
                 backgroundColor='green'

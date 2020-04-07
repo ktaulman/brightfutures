@@ -10,6 +10,7 @@
     "braintree-web": "^3.60.0",
     "braintree-web-drop-in": "^1.22.1",
     "contentful": "^7.14.0",
+    "contentful-management": "^5.19.0",
     "cypress": "^4.3.0",
     "font-picker-react": "^3.5.0",
     "react": "^16.12.0",

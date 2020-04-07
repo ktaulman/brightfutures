@@ -26,7 +26,7 @@ import BrainTree from '../components/BrainTree/BrainTree'
 const contentful=require('contentful')
 const content= contentful.createClient({
     space:process.env.REACT_APP_CONTENTFUL_SPACE_ID,
-    accessToken:process.env.REACT_APP_CONTENTFUL_API_KEY
+    accessToken:process.env.REACT_APP_CONTENTFUL_DELIVERY_API_KEY
 })
 
 
