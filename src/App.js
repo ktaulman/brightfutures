@@ -19,26 +19,60 @@ import './index.css'
 
 
 import ModalWrapper from './components/ModalWrapper/ModalWrapper';
+//Contentful CMS 
+const contentful=require('contentful')
+const content= contentful.createClient({
+    space:process.env.REACT_APP_CONTENTFUL_SPACE_ID,
+    accessToken:process.env.REACT_APP_CONTENTFUL_PREVIEW_API_KEY,
+    host:'preview.contentful.com'
+})
+//font loader
+var WebFont = require('webfontloader');
+
+
+
+
 
 function App(){
     //React Router
     const location=useLocation();
     const {path,url}=useRouteMatch();
-    console.log('LINE 27 APP')
-    console.log("LOCATION")
-    console.log(location)
-    console.log('PATH')
-    console.log(path)
-    console.log('URL')
-    console.log(url)
+    
+    //Font State 
 
-
-    const[displayModal,setDisplayModal]=useState(false);
-    //PASSWORD View
-    const [password,setPassword]=useState(null)
-    const [error,setError]=useState(null);
-    const [isCorrectPassword,setIsCorrectPassword]=useState(true);
+    useEffect(()=>{
+        content.getEntry("3M7edk6wN4UrT9q8Ok93CA").then(res=>{
+            //Destructure font property
+            const {font}=res.fields;
+            console.log(font)
+            //load from Google API 
+            WebFont.load({
+                google:{
+                    families:[font]
+                },
+                fontactive:function(fontFamily,fvd){
+                    console.log(fontFamily)
+                    const app=document.querySelector('#app')
+                    // app.style.fontFamily=fontFamily;
+                    const buttons=document.querySelectorAll(`[class*=__button]`)
+                    // buttons.forEach(button=>button.style.fontFamily=fontFamily)
+                    app.style.fontFamily=fontFamily;
+                    buttons.forEach(button=>button.style.fontFamily=fontFamily)
+                }
+            })
+           
+        })
+    },[])
    
+    //Modal State
+    const[displayModal,setDisplayModal]=useState(false);
+
+    //Header State 
+    const [logoURL,setLogoURL]=useState(null);
+    useEffect(()=>{
+        content.getEntry('3NsR5rAC9LfDlmWyTrmJpq').then(res=>setLogoURL(res.fields.logo.fields.file.url))
+    },[])
+
     //window resize effect
     const[screenWidth,setScreenWidth]=useState(window.innerWidth) 
     useEffect(()=>{
@@ -46,9 +80,15 @@ function App(){
             setScreenWidth(window.innerWidth)
         }
         window.addEventListener('resize',handleResize)
+        
     })
-    //COMMMENT
+    //Handle Password Input  //PASSWORD View
     const openPassword=process.env.REACT_APP_OPEN_PASSWORD
+    const [password,setPassword]=useState(null)
+    const [error,setError]=useState(null);
+    const [isCorrectPassword,setIsCorrectPassword]=useState(true);
+
+   
     function handlePasswordSubmit(){
         if(password===openPassword){
             setIsCorrectPassword(true)
@@ -59,8 +99,12 @@ function App(){
             },1000)
         }
     }
-    //Password View
+
+    //RENDERING (CONDITIONAL) BELOW
+    //
+    //Prompt User Password Entrance
     if(!isCorrectPassword){
+ 
         return(
     
         <div>
@@ -84,10 +128,8 @@ function App(){
     }
 
 
-
-
-
-    //modal logic
+    //FUNCTIONS
+    
     function openModal(){
         setDisplayModal(true)
         document.getElementById('main').classList.add('--opacity')
@@ -99,7 +141,7 @@ function App(){
 
    
     return(
-        <>
+        <div id='app'>
        
         <ModalWrapper   
             displayModal={displayModal}
@@ -109,7 +151,7 @@ function App(){
             <div id="eventbrite-widget-container-100295540662"></div>
         </ModalWrapper>
             <Header>
-                <NavLink to={url}><Logo/></NavLink>
+                <NavLink to={url}><Logo url={logoURL}/></NavLink>
                 
                {
                     screenWidth<=700?
@@ -149,7 +191,7 @@ function App(){
                 <NavLink to='/news'>News</NavLink>
             </Footer>
       
-                </>
+                </div>
     )
 }
 export default App;

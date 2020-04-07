@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 
 
-import {Route, Link,useLocation,useRouteMatch,Switch} from "react-router-dom";
+import {Route, Link,useLocation,useRouteMatch,Switch,NavLink} from "react-router-dom";
 
 
 //components
@@ -24,15 +24,24 @@ import './preview.css'
 
 //Contentful CMS 
 const contentful=require('contentful')
-const content= contentful.createClient({
+// //preview
+const contentPreview= contentful.createClient({
     space:process.env.REACT_APP_CONTENTFUL_SPACE_ID,
     accessToken:process.env.REACT_APP_CONTENTFUL_PREVIEW_API_KEY,
     host:'preview.contentful.com'
 })
+// //management
+const contentManagement=contentful.createClient({
+    space:process.env.REACT_APP_CONTENTFUL_SPACE_ID,
+    accessToken:process.env.REACT_APP_CONTENTFUL_MANAGEMENT_API_KEY,
+    host:'api.contentful.com'
+})
+
+
 function DisplayLogo(){
     const [logoURL,setLogoURL]=useState(null)
     useEffect(()=>{
-        content.getEntry('3NsR5rAC9LfDlmWyTrmJpq').then(res=>setLogoURL(res.fields.logo.fields.file.url))
+        contentPreview.getEntry('3NsR5rAC9LfDlmWyTrmJpq').then(res=>setLogoURL(res.fields.logo.fields.file.url))
     },[])
     return(
         <Logo url={logoURL}/> 
@@ -44,7 +53,7 @@ function DisplayMissionStatement (){
     const[bodyMission,setBodyMission]=useState(null);
    
     useEffect(()=>{
-        content.getEntry('6XkSCISzGt8d0R5ubciAwA').then(res=>{
+        contentPreview.getEntry('6XkSCISzGt8d0R5ubciAwA').then(res=>{
     
             const {title,textBody}=res.fields;
             setTitleMission(title);
@@ -73,7 +82,7 @@ function DisplayFeatureCard(){
      const[buttonTwoLabelFeatureCard,setButtonTwoLabelFeatureCard]=useState(null);
      const[buttonOneURLFeatureCard,setButtonOneURLFeatureCard]=useState(null);
      const[buttonTwoURLFeatureCard,setButtonTwoURLFeatureCard]=useState(null)
-    content.getEntry("XfArvtJCRzAdQzyZgIWbv").then(res=>{
+    contentPreview.getEntry("XfArvtJCRzAdQzyZgIWbv").then(res=>{
         
         const {title,caption,details,buttonOneLabel,buttonTwoLabel,buttonOneURL,buttonTwoURL}= res.fields;
         setBackgroundFeatureCard(res.fields.backgroundImage.fields.file.url)
@@ -118,7 +127,7 @@ function DisplaySocialMediaLinks(){
      const [facebook,setFacebookUrl]=useState(null);
      const [instagram,setInstagramUrl]=useState(null);
     useEffect(()=>{
-        content.getEntry('2mSBA7L23BOJyXJwUuF4I').then(res=>{
+        contentPreview.getEntry('2mSBA7L23BOJyXJwUuF4I').then(res=>{
            const{twitterUrl, facebookUrl,instagramUrl }=res.fields;
            setTwitterUrl(twitterUrl)
            setFacebookUrl(facebookUrl)
@@ -153,7 +162,7 @@ function DisplayContactInformation(){
     const [mailing,setMailing]=useState(null);
 
     //Contact Information 
-    content.getEntry("4MRX3nqYjh3A3EbRNSIPxk").then(entry=>{    
+    contentPreview.getEntry("4MRX3nqYjh3A3EbRNSIPxk").then(entry=>{    
        console.log(entry.fields)
         const{telephoneNumber,emailAddress,mailingAddress}=entry.fields;
         setPhone(telephoneNumber);
@@ -229,7 +238,9 @@ function PreviewNav(){
             <FontPicker
                 apiKey={process.env.REACT_APP_GOOGLE_FONTS_API_KEY}
                 activeFontFamily={font}
-                onChange={(nextFont)=>{setFont(nextFont.family)}}
+                onChange={(nextFont)=>{setFont(nextFont.family)
+                console.log(nextFont,nextFont.family)
+                }}
                 sort='popularity'
             />
             
@@ -242,7 +253,7 @@ function PreviewNav(){
                         marginLeft:'10px'
                     }}
                 handleClick={()=>{
-                    console.log(e=>e.target);
+                    
                 }}
                 color='white'
                 backgroundColor='green'
@@ -284,9 +295,15 @@ export default function Preview(){
                 {/* <DropDownMenu/> */}
                 <DisplayContactInformation/>
 
-                <Footer>
-                    <h1>Pave Foundation</h1> 
-                </Footer>
+                    <Footer>
+                        
+                        <NavLink to='/'>Home</NavLink>
+                        <NavLink to='/donate'>Donate</NavLink>
+                        <NavLink to='/tickets'>Tickets</NavLink>
+                        <NavLink to='/aboutUs'>About</NavLink>
+                        {/* <NavigationLinks row noBackground style={{fontSize:'16px',color:'#00000'}}/> */}
+                        <NavLink to='/news'>News</NavLink>
+                    </Footer>
             </main>
             </Route>
             

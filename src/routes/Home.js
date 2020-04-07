@@ -31,7 +31,6 @@ const content= contentful.createClient({
 
 
 
-
 export default function Home({openModal}){
     //set logo
     //set navigation links 
@@ -89,8 +88,7 @@ export default function Home({openModal}){
             setEmail(emailAddress);
             setMailing(mailingAddress)
         })
-        
-
+      
     },[])
 
    
@@ -129,6 +127,7 @@ return(
                 width:'100vw'
             }}
             id='main'
+            className='apply-font'
             >   
              
                     <TextSection 
