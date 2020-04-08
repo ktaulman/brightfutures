@@ -17,12 +17,12 @@ import twitterSVG from '../components/SocialLinks/twitter.svg';
 import instagramSVG from '../components/SocialLinks/instagram.svg';
 import facebookSVG from '../components/SocialLinks/facebook.svg';
 
-
 //have Modal Context available
 // import {useModalContext} from '../context/ModalContext';
 import BrainTree from '../components/BrainTree/BrainTree'
 
 //contentful CMS 
+//THIS IS THE DELIVERY API ONLY FOR PUBLISHING
 const contentful=require('contentful')
 const content= contentful.createClient({
     space:process.env.REACT_APP_CONTENTFUL_SPACE_ID,
@@ -105,7 +105,7 @@ function TextSectionAndDonate(){
     return(
         <>
             <TextSection
-                label='How to Donate'
+                title='How to Donate'
                 body='Pledge an amount below start the donation process'
                 color='#7E62AC'
             />
@@ -131,7 +131,7 @@ return(
             >   
              
                     <TextSection 
-                        label={title||'loading'}
+                        title={title||'loading'}
                         body={body||'loading'}
                     />
 
@@ -174,7 +174,7 @@ return(
                             label:'Events',
                             component:<TextSection 
                                 color='rgb(172, 149, 98)'
-                                label='Our Upcoming Events'
+                                title='Our Upcoming Events'
                                 body=''
                                 href="https://www.eventbrite.com/e/2020-camp-preparing-our-girls-for-center-stage-tickets-100295540662?ref=elink" 
                                 linkTitle={'July 2020 Camp'}

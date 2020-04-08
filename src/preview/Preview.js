@@ -1,9 +1,9 @@
+//import React
 import React,{useState,useEffect} from 'react';
-
-
+//React Router (SPA)
 import {Route, Link,useRouteMatch,NavLink} from "react-router-dom";
-
-
+//Contentful input 
+import Input from './Input'
 //components
 import TextSection from '../components/TextSection/TextSection';
 import Spacer from '../components/Spacer/Spacer';
@@ -22,6 +22,8 @@ import Footer from '../components/Footer/Footer'
 //import CSS 
 import './preview.css'
 
+
+
 //Contentful CMS 
 //
 const contentful=require('contentful')
@@ -39,6 +41,8 @@ const contentManagement=contentful_M.createClient({
 })
 //
 //
+
+
 function DisplayLogo(){
     const [logoURL,setLogoURL]=useState(null)
     useEffect(()=>{
@@ -50,68 +54,103 @@ function DisplayLogo(){
 }
 
 function DisplayMissionStatement (){
-    const[titleMission,setTitleMission]=useState(null);
-    const[bodyMission,setBodyMission]=useState(null);
+    //STATES
+    const[title,setTitle]=useState(null);
+    const[body,setBody]=useState(null);
+    const[titleColor,setTitleColor]=useState(null);
+    const[bodyColor,setBodyColor]=useState(null)
    
+    //LIFECYCLES//HOOKS
+    //
+    //set
     useEffect(()=>{
         contentPreview.getEntry('6XkSCISzGt8d0R5ubciAwA').then(res=>{
-    
-            const {title,textBody}=res.fields;
-            setTitleMission(title);
-            setBodyMission(textBody);
+            console.log(res.fields)
+            const {title,titleColor,textBody,bodyColor}=res.fields;
+            setTitle(title);
+            setTitleColor(titleColor);
+            setBody(textBody);
+            setBodyColor(bodyColor);
         })
 
-    })
+    },[])
+    if(title && body){
     return(
         <>
        
         <TextSection
-            label={titleMission}
-            body={bodyMission}
+            title={title}
+            body={body}
+            color={titleColor}
+            bodyColor={bodyColor}
         />
         </>
+    )
+    }
+    return(
+        <div>...Loading</div>
     )
 }
 
 function DisplayFeatureCard(){
      //set FeatureCard 
-     const[backgroundFeatureCard,setBackgroundFeatureCard]=useState(null);
-     const[titleFeatureCard,setTitleFeatureCard]=useState(null);
-     const[captionFeatureCard,setCaptionFeatureCard]=useState(null);
-     const[detailsFeatureCard,setDetailsFeatureCard]=useState(null);
-     const[buttonOneLabelFeatureCard,setButtonOneLabelFeatureCard]=useState(null);
-     const[buttonTwoLabelFeatureCard,setButtonTwoLabelFeatureCard]=useState(null);
-    //  const[buttonOneURLFeatureCard,setButtonOneURLFeatureCard]=useState(null);
-     const[buttonTwoURLFeatureCard,setButtonTwoURLFeatureCard]=useState(null)
+     const[background,setBackground]=useState(null);
+
+     const[title,setTitle]=useState(null);
+     const[titleColor,setTitleColor]=useState(null);
+
+     const[caption,setCaption]=useState(null);
+     const[captionColor,setCaptionColor]=useState(null);
+
+     const[details,setDetails]=useState(null);
+     const[detailsColor,setDetailsColor]=useState(null);
+    
+
+     const[buttonOneLabel,setButtonOneLabel]=useState(null);
+     const[buttonOneColor,setButtonOneColor]=useState(null)
+
+     const[buttonTwoLabel,setButtonTwoLabel]=useState(null);
+     const[buttonTwoColor,setButtonTwoColor]=useState(null);
+
+     const[buttonTwoURL,setButtonTwoURL]=useState(null)
     contentPreview.getEntry("XfArvtJCRzAdQzyZgIWbv").then(res=>{
         
-        const {title,caption,details,buttonOneLabel,buttonTwoLabel,buttonTwoURL}= res.fields;
-        setBackgroundFeatureCard(res.fields.backgroundImage.fields.file.url)
-        setTitleFeatureCard(title);
-        setCaptionFeatureCard(caption);
-        setDetailsFeatureCard(details);
-        setButtonOneLabelFeatureCard(buttonOneLabel);
-        setButtonTwoLabelFeatureCard(buttonTwoLabel);
-        setButtonTwoURLFeatureCard(buttonTwoURL);
+        const {title,titleColor,caption,captionColor,detailsColor,buttonOneLabel,buttonOneColor,buttonTwoLabel,buttonTwoColor,buttonTwoURL}= res.fields;
+        setBackground(res.fields.backgroundImage.fields.file.url)
+        setTitle(title);
+        setTitleColor(titleColor);
+        setCaption(caption);
+        setCaptionColor(captionColor);
+        setDetails(details);
+        setDetailsColor(detailsColor);
+        setButtonOneLabel(buttonOneLabel);
+        setButtonOneColor(buttonOneColor);
+        setButtonTwoLabel(buttonTwoLabel);
+        setButtonTwoColor(buttonTwoColor)
+        setButtonTwoURL(buttonTwoURL);
     })
     return(
         <FeatureCard
-        backgroundImageURL={backgroundFeatureCard}
-        title={titleFeatureCard}
-        caption={captionFeatureCard}
-        description={detailsFeatureCard}
+        backgroundImageURL={background}
+        title={title}
+        titleColor={titleColor}
+        caption={caption}
+        captionColor={captionColor}
+        details={details}
+        detailsColor={detailsColor}
+
         buttonsArray={[
             {
                 textColor:'#FFFFFF',
-                backgroundColor:'rgb(172, 149, 98)',
-                label:buttonOneLabelFeatureCard,
+                backgroundColor:buttonOneColor||'rgb(172, 149, 98)',
+                label:buttonOneLabel,
                 handleClick:()=>window.open("https://www.eventbrite.com/e/2020-camp-preparing-our-girls-for-center-stage-tickets-100295540662?ref=elink",'_blank'),
             },
             {
                 textColor:'#000000',
-                backgroundColor:'#62AC9A',
-                label:buttonTwoLabelFeatureCard,
-                handleClick:()=>window.open(buttonTwoURLFeatureCard,'_blank')
+                backgroundColor:buttonTwoColor||'#62AC9A',
+                label:buttonTwoLabel,
+                handleClick:()=>window.open(buttonTwoURL,'_blank')
             }
         ]}
     /> 
@@ -252,7 +291,7 @@ function PreviewNav(){
             :null
             }
             <Button
-                label='PUBLISH TO LIVE PAGE'
+                label='UPDATE PREVIEW FONT'
                 style={{
                      
                         fontSize:'12px',
@@ -260,6 +299,15 @@ function PreviewNav(){
                         marginLeft:'10px'
                     }}
                 handleClick={()=>{
+                        function handleResult(res,color){
+                            const DOM_result=document.querySelector('#fontPick-result')
+                            DOM_result.innerHTML=res;
+                            DOM_result.style.color=color||'black';
+                            setTimeout(()=>{
+                                document.querySelector('#fontPick-result').innerHTML=''
+                            },3000)
+                        }
+
                         contentManagement
                             .getSpace("8hea45tlyfai")
                             .then(space=>space.getEnvironment('master'))
@@ -268,12 +316,16 @@ function PreviewNav(){
                                 entry.fields.font['en-US']=font;
                                 return entry.update()
                             })
-                            .then(res=>console.log(`Entry ${res.sys.id} has been successfully updated.`))
-                            .catch(console.error)   
+                            .then(res=>{
+                                console.log(res)
+                                handleResult('Updated to '+res.fields.font['en-US'],'green')
+                                })
+                            .catch(err=>handleResult('Error'+err,'red'))   
                 }}
                 color='white'
                 backgroundColor='green'
              />
+            <div id='fontPick-result' style={{fontSize:'12px',margin:'2px',}}></div>
         </div>
     </div>
     <Spacer height={`${(topNavHeight/2)+2}px`} id={'PreviewNav-Spacer'}/>

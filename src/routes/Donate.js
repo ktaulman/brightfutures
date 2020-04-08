@@ -8,7 +8,7 @@ export default function Donate(){
         <>
         <Spacer height='50px'/> 
         <TextSection
-            label='HELP OUR CAUSE'
+            title='HELP OUR CAUSE'
             body='Delivering on our mission requires fundraising from our amazing community. Any donation is appreciated and we promise to make an impact with your investment.'
         />
         

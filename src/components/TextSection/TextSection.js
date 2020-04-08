@@ -1,7 +1,7 @@
 import React from 'react';
 import './TextSection.css'
 
-export default function TextSection({label,body,color,centerAll,sameColorAll,href,linkTitle,handleRender,button}){
+export default function TextSection({title,body,color,centerAll,sameColorAll,href,linkTitle,bodyColor,handleRender,button}){
    
     return (
         <div 
@@ -12,11 +12,11 @@ export default function TextSection({label,body,color,centerAll,sameColorAll,hre
                 className="TextSection__label"
                 style={{color:sameColorAll?color:color?color:"#62AC9A"}}
             >
-                {label}
+                {title}
             </h2>
             <p 
                 className="TextSection__body" 
-                style={{color:sameColorAll?color:'#000000'}}
+                style={{color:sameColorAll?color:bodyColor?bodyColor:'#000000'}}
             >
                 {body}
             </p>

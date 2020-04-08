@@ -1,7 +1,7 @@
 import React from 'react';
 import './FeatureCard.css';
 
-export default function FeatureCard ({backgroundImageURL,backgroundColor,title,caption,description,buttonsArray}){
+export default function FeatureCard ({backgroundImageURL,backgroundColor,title,titleColor,caption,captionColor,details,detailsColor,buttonsArray}){
 
     return(
         
@@ -26,7 +26,7 @@ export default function FeatureCard ({backgroundImageURL,backgroundColor,title,c
 
             <h2 className='FeatureCard__title' >{title}</h2>
             <h3 className='FeatureCard__caption'>{caption}</h3>
-            <h3 className='FeatureCard__description'>{description}</h3>
+            <h3 className='FeatureCard__description'>{details}</h3>
         </div>
 
          <div className='FeatureCard__buttonsWrapper'>

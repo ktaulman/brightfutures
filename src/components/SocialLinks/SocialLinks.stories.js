@@ -16,7 +16,7 @@ export const DefaultView = () =>{
 
     return(
         <SocialLinks
-            label={'Get Connected'}
+            title={'Get Connected'}
             iconsArray={icons}
         />
     )

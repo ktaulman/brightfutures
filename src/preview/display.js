@@ -41,7 +41,7 @@ const content= contentful.createClient({
         })
         return(
             <TextSection
-                label={titleMission}
+                title={titleMission}
                 body={bodyMission}
             />
         )

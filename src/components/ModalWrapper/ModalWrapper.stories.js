@@ -29,7 +29,7 @@ export const SampleView=()=>{
             />
 
             <TextSection 
-                label={'EARLY BIRD PRICING'}
+                title={'EARLY BIRD PRICING'}
                 body={"$85 before June 1st"} 
                 color='#62AC9A'
                 centerAll sameColorAll 

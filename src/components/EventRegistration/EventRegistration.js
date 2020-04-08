@@ -176,7 +176,7 @@ export default function EventRegistration({handleClick}){
     }else{
         return(
                 <TextSection 
-                    label={"Thank You!"} 
+                    title={"Thank You!"} 
                     body={`Please check your email at ${email} for event confirmation details.`}
                     
                 />
