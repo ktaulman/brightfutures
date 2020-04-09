@@ -108,13 +108,15 @@ function DisplayFeatureCard(){
 
      const[buttonOneLabel,setButtonOneLabel]=useState(null);
      const[buttonOneColor,setButtonOneColor]=useState(null)
+     const[buttonOneBackground,setButtonOneBackground]=useState(null);
 
      const[buttonTwoLabel,setButtonTwoLabel]=useState(null);
      const[buttonTwoColor,setButtonTwoColor]=useState(null);
+     const[buttonTwoBackground,setButtonTwoBackground]=useState(null)
 
      const[buttonTwoURL,setButtonTwoURL]=useState(null)
     contentPreview.getEntry("XfArvtJCRzAdQzyZgIWbv").then(res=>{
-        
+        console.log(res.fields)
         const {title,titleColor,caption,captionColor,detailsColor,buttonOneLabel,buttonOneColor,buttonTwoLabel,buttonTwoColor,buttonTwoURL}= res.fields;
         setBackground(res.fields.backgroundImage.fields.file.url)
         setTitle(title);
