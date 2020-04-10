@@ -33,104 +33,44 @@ const content= contentful.createClient({
 
 
 export default function Home({openModal}){
-    //set logo
-    //set navigation links 
-    
 
-    //set Headline
-    const[title,setTitle]=useState(null);
-    const[body,setBody]=useState(null);
+     //STATES
+     const [missionState,setMissionState]=useState(null);
+     const [bannerState,setBannerState]=useState(null);
+     const [socialMediaState,setSocialMediaState]=useState(null);
+     const [contactInfoState,setContactInfoState]=useState(null);
+    //Flip Loading State
+    const isLoaded=(missionState&&bannerState&&socialMediaState&&contactInfoState)?true:false;
 
-    //set  Home Pager Banner
-    const [banner,setBanner]=useState({
-        title:null,
-        titleColor:null,
-        caption:null,
-        captionColor:null,
-        details:null,
-        detailsColor:null,
-        buttonOneLabel:null,
-        buttonOneURL:null,
-        buttonOneColor:null,
-        buttonOneBackground:null,
-        buttonTwoLabel:null,
-        buttonTwoURL:null,
-        buttonTwoColor:null,
-        buttonTwoBackground:null,
-        backgroundImage:null,
-    })
-    const [bannerTwo,setBannerTwo]=useState({})
-   
-
-    const[background,setBackground]=useState(null);
-    const[caption,setCaption]=useState(null);
-    const[details,setDetails]=useState(null);
-    const[buttonOneLabel,setButtonOne]=useState(null);
-    const[buttonTwoLabel,setButtonTwo]=useState(null);
-    const[buttonOneURL,setButtonOneURL]=useState(null);
-    const[buttonTwoURL,setButtonTwoURL]=useState(null);
-
-    //set socialMediaLinks
-    const [twitter,setTwitterUrl]=useState(null);
-    const [facebook,setFacebookUrl]=useState(null);
-    const [instagram,setInstagramUrl]=useState(null);
-    //set Contact Information
-    const [phone,setPhone]=useState(null);
-    const [email,setEmail]=useState(null);
-    const [mailing,setMailing]=useState(null);
-  
-    useEffect(()=>{   
-        //headline 
+    //LIFECYCLES
+     useEffect(()=>{
+         //Get Mission State from Contentful
         content.getEntry('6XkSCISzGt8d0R5ubciAwA').then(res=>{
-            const {title,textBody}=res.fields;
-            setTitle(title);
-            setBody(textBody)
-        })
-        //
-        content.getEntry("XfArvtJCRzAdQzyZgIWbv").then(res=>{
             console.log(res.fields)
-            const {title,titleColor,
-                caption,captionColor,
-                details, detailsColor,
-                buttonOneLabel,buttonOneURL, buttonOneColor,buttonOneBackground,
-                buttonTwoLabel,buttonTwoURL,buttonTwoColor, buttonTwoBackground}= res.fields;
-            
-            setBannerTwo(res.fields)
-            
-            //
-            setBackground(res.fields.backgroundImage.fields.file.url)
-            setTitle(title);
-            setCaption(caption)
-            setDetails(details)
-            setButtonOne(buttonOneLabel)
-            setButtonTwo(buttonTwoLabel)
-        })
-        //socialMediaLinks
+            setMissionState(res.fields)
+        }).catch(console.error)
+
+        //Get Banner State from COntentful 
+        content.getEntry("XfArvtJCRzAdQzyZgIWbv").then(res=>{
+            setBannerState(res.fields)
+        }).catch(console.error)
+        //Get SocialMediaState from Contentful
         content.getEntry('2mSBA7L23BOJyXJwUuF4I').then(res=>{
-            const{twitterUrl, facebookUrl,instagramUrl }=res.fields;
-            setTwitterUrl(twitterUrl)
-            setFacebookUrl(facebookUrl)
-            setInstagramUrl(instagramUrl)
-        })
-        //Contact Information 
-        content.getEntry("4MRX3nqYjh3A3EbRNSIPxk").then(res=>{
-            const{telephoneNumber,emailAddress,mailingAddress}=res.fields;
-            setPhone(telephoneNumber);
-            setEmail(emailAddress);
-            setMailing(mailingAddress)
-        })
-      
+            setSocialMediaState(res.fields)
+        }).catch(console.error)
+        //get Contact Info from Contentful
+        content.getEntry("4MRX3nqYjh3A3EbRNSIPxk").then(entry=>{    
+            setContactInfoState(entry.fields)
+         })
+
     },[])
 
+    
+    //Setup Social Media LInks 
+       //SocialLinks Media
    
-
-    const icons=[
-            {href:twitter,svg:twitterSVG},
-            {href:instagram,svg:instagramSVG},
-            {href:facebook,svg:facebookSVG},
-        ]
-
-//Setup modal being clicked 
+   
+  
 
 function TextSectionAndDonate(){
     return(
@@ -145,10 +85,22 @@ function TextSectionAndDonate(){
         </>
     )
 }
-console.log(bannerTwo)
-return(
-    <>
 
+
+///RENDERING 
+//Conditional State 
+if(!isLoaded){
+    return(
+        <div>
+
+        </div>
+    )
+}
+
+
+
+//Default Render
+return(
     <main style={{
                 display:'flex',
                 flexDirection:'column',
@@ -162,33 +114,39 @@ return(
             >   
              
                     <TextSection 
-                        title={title||'loading'}
-                        body={body||'loading'}
+                        title={missionState.title||'loading'}
+                        titleColor={missionState.titleColor}
+                        body={missionState.textBody||'loading'}
+                        bodyColor={missionState.bodyColor}
                     />
 
                     <Spacer height='10px'/>
              
+                            
                     <FeatureCard
-                        backgroundImageURL={background}
-                        title={title}
-                        caption={caption}
-                        description={details}
+                        backgroundImageURL={bannerState.backgroundImage.fields.file.url}
+                        title={bannerState.title}
+                        titleColor={bannerState.titleColor}
+                        caption={bannerState.caption}
+                        captionColor={bannerState.captionColor}
+                        details={bannerState.details}
+                        detailsColor={bannerState.detailsColor}
+
                         buttonsArray={[
                             {
-                                textColor:'#FFFFFF',
-                                backgroundColor:'rgb(172, 149, 98)',
-                                label:buttonOneLabel,
-                                handleClick:openModal
+                                textColor:bannerState.buttonOneColor||'#FFFFFF',
+                                backgroundColor:bannerState.buttonOneBackground||'rgb(172, 149, 98)',
+                                label:bannerState.buttonOneLabel,
+                                handleClick:()=>window.open(bannerState.buttonOneURL,'_blank'),
                             },
                             {
-                                textColor:'#000000',
-                                backgroundColor:'#62AC9A',
-                                label:buttonTwoLabel,
-                                handleClick:()=>window.open("https://www.eventbrite.com/e/2020-camp-preparing-our-girls-for-center-stage-tickets-100295540662?ref=elink",'_blank'),
-                               
+                                textColor:bannerState.buttonTwoColor||'#000000',
+                                backgroundColor:bannerState.buttonTwoBackground||'#62AC9A',
+                                label:bannerState.buttonTwoLabel,
+                                handleClick:()=>window.open(bannerState.buttonTwoURL,'_blank')
                             }
                         ]}
-                    /> 
+                /> 
             <Spacer height='10px'/>
 
             <DropDownMenu
@@ -225,21 +183,39 @@ return(
             <Spacer height='10px'/>  
 
             <SocialLinks
-                label={'Get Connected'}
-                iconsArray={icons}
-            />
+                title={socialMediaState.title}
+                titleColor={socialMediaState.titleColor}
+                iconsArray={[
+                    {
+                        href:socialMediaState.twitterURL,
+                        svg:twitterSVG
+                    },
+                    {
+                        href:socialMediaState.facebookURL,
+                        svg:facebookSVG
+                    },
+                    {
+                        href:socialMediaState.instagramURL,
+                        svg:instagramSVG
+                    }
+                ]}
+             />
 
-            <Spacer height='10px'/>
+            <Spacer height='20px'/>
 
-            <Spacer height='10px'/>
-
-            <ContactInfo
-                phone={phone}
-                email={email}
-                address={mailing}
+            <ContactInfo 
+                title={contactInfoState.title}
+                titleColor={contactInfoState.titleColor}
+                phone={contactInfoState.telephoneNumber}
+                phoneColor={contactInfoState.telephoneNumberColor}
+                email={contactInfoState.emailAddress}
+                emailColor={contactInfoState.emailAddressColor}
+                address={contactInfoState.mailingAddress}
+                addressColor={contactInfoState.mailingAddressColor}
             />
             <Spacer height='10px'/>
    
             </main>
-            </>)
-            }
+         
+    )
+}

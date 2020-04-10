@@ -37,13 +37,11 @@ function App(){
     //React Router
     const {path,url}=useRouteMatch();
     
-    //Font State 
-
+    //Load WebFont via useEffect 
     useEffect(()=>{
         content.getEntry("3M7edk6wN4UrT9q8Ok93CA").then(res=>{
             //Destructure font property
             const {font}=res.fields;
-            console.log(font)
             //load from Google API 
             WebFont.load({
                 google:{
@@ -59,7 +57,6 @@ function App(){
                     buttons.forEach(button=>button.style.fontFamily=fontFamily)
                 }
             })
-           
         })
     },[])
    

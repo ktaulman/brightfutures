@@ -159,7 +159,7 @@ function DisplaySocialMediaLinks(){
     //Rendering 
     //
     //if state not loaded.
-    if(!contentState) return (<div>...Loading</div>)
+    if(!contentState) return (<div>Loading...</div>)
     
     //Default Rendering
     //destructure state
@@ -198,14 +198,14 @@ function DisplayContactInformation(){
         })
     },[])
  
-    
     //RENDERING
     //filter out before load
     if(!contentState){
         return <div>Loading...</div>
     }
     //destructure JSON data 
-    const {title,titleColor,telephoneNumber, telephoneNumberColor,emailAddress,emailAddressColor,mailingAddress, mailingAddressColor}=contentState
+    const {title,titleColor,telephoneNumber, telephoneNumberColor,emailAddress,emailAddressColor,mailingAddress, mailingAddressColor}=contentState;
+    
     console.log(telephoneNumberColor)
     return(
         <ContactInfo 
