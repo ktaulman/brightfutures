@@ -348,6 +348,49 @@ export default function Preview(){
    
     const {path}=useRouteMatch();
 
+    const isUserLoggedIn=sessionStorage.isLoggedIn?true:false;
+    console.log(isUserLoggedIn)
+    const openPassword=process.env.REACT_APP_OPEN_PASSWORD
+    const [password,setPassword]=useState(null)
+    const [error,setError]=useState(null);
+    const [isCorrectPassword,setIsCorrectPassword]=useState(isUserLoggedIn);
+
+    function handlePasswordSubmit(){
+        if(password===openPassword){
+            sessionStorage.isLoggedIn=true;
+            setIsCorrectPassword(true)
+        }else{
+            setError('ERROR:WRONG PASSWORD')
+            setTimeout(function(){
+                setError(null)
+            },1000)
+        }
+    }
+
+    if(!isCorrectPassword){
+ 
+        return(
+    
+        <div>
+            <h1>Enter Unlock</h1>
+     
+            <input 
+                type='password' 
+                onChange={(e)=>setPassword(e.target.value)}
+                onKeyPress={(e)=>
+                    e.key==='Enter'?handlePasswordSubmit():null
+                }
+            ></input>
+           
+            <button 
+                onClick={handlePasswordSubmit}
+                type='submit'
+            >Submit</button>
+            <div>{error}</div>
+        </div>
+        )
+    }
+
     return(
         <>
         <PreviewNav/>

@@ -58,10 +58,12 @@ function App(){
         
     },[])
     //Handle Password Input  //PASSWORD View
+    const isUserLoggedIn=sessionStorage.isLoggedIn?true:false;
+    console.log(isUserLoggedIn)
     const openPassword=process.env.REACT_APP_OPEN_PASSWORD
     const [password,setPassword]=useState(null)
     const [error,setError]=useState(null);
-    const [isCorrectPassword,setIsCorrectPassword]=useState(null);
+    const [isCorrectPassword,setIsCorrectPassword]=useState(isUserLoggedIn);
 
       //Load WebFont via useEffect 
       useEffect(()=>{
@@ -83,9 +85,9 @@ function App(){
                   
                         console.log(buttons, app)
 
-                    app.style.fontFamily=fontFamily;
+                    // app.style.fontFamily=fontFamily;
 
-                    buttons.forEach(button=>button.style.fontFamily=fontFamily)
+                    // buttons.forEach(button=>button.style.fontFamily=fontFamily)
                 }
             })
         })}
@@ -93,6 +95,7 @@ function App(){
    
     function handlePasswordSubmit(){
         if(password===openPassword){
+            sessionStorage.isLoggedIn=true;
             setIsCorrectPassword(true)
         }else{
             setError('ERROR:WRONG PASSWORD')
