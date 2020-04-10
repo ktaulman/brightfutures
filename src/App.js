@@ -85,9 +85,9 @@ function App(){
                   
                         console.log(buttons, app)
 
-                    // app.style.fontFamily=fontFamily;
+                    app.style.fontFamily=fontFamily;
 
-                    // buttons.forEach(button=>button.style.fontFamily=fontFamily)
+                    buttons.forEach(button=>button.style.fontFamily=fontFamily)
                 }
             })
         })}
