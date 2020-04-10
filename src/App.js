@@ -37,28 +37,7 @@ function App(){
     //React Router
     const {path,url}=useRouteMatch();
     
-    //Load WebFont via useEffect 
-    useEffect(()=>{
-        content.getEntry("3M7edk6wN4UrT9q8Ok93CA").then(res=>{
-            //Destructure font property
-            const {font}=res.fields;
-            //load from Google API 
-            WebFont.load({
-                google:{
-                    families:[font]
-                },
-                fontactive:function(fontFamily,fvd){
-                    console.log(fontFamily)
-                    const app=document.querySelector('#app')
-                    // app.style.fontFamily=fontFamily;
-                    const buttons=document.querySelectorAll(`[class*=__button]`)
-                    // buttons.forEach(button=>button.style.fontFamily=fontFamily)
-                    app.style.fontFamily=fontFamily;
-                    buttons.forEach(button=>button.style.fontFamily=fontFamily)
-                }
-            })
-        })
-    },[])
+  
    
     //Modal State
     const[displayModal,setDisplayModal]=useState(false);
@@ -77,13 +56,40 @@ function App(){
         }
         window.addEventListener('resize',handleResize)
         
-    })
+    },[])
     //Handle Password Input  //PASSWORD View
     const openPassword=process.env.REACT_APP_OPEN_PASSWORD
     const [password,setPassword]=useState(null)
     const [error,setError]=useState(null);
-    const [isCorrectPassword,setIsCorrectPassword]=useState(true);
+    const [isCorrectPassword,setIsCorrectPassword]=useState(null);
 
+      //Load WebFont via useEffect 
+      useEffect(()=>{
+        if(isCorrectPassword){
+        content.getEntry("3M7edk6wN4UrT9q8Ok93CA").then(res=>{
+            //Destructure font property
+            const {font}=res.fields;
+            //load from Google API 
+
+            WebFont.load({
+                google:{
+                    families:[font]
+                },
+                fontactive:function(fontFamily,fvd){
+                    console.log(fontFamily)
+                    const app=document.querySelector('#app')
+                
+                    const buttons=document.querySelectorAll(`[class*=__button]`)
+                  
+                        console.log(buttons, app)
+
+                    app.style.fontFamily=fontFamily;
+
+                    buttons.forEach(button=>button.style.fontFamily=fontFamily)
+                }
+            })
+        })}
+    },[isCorrectPassword])
    
     function handlePasswordSubmit(){
         if(password===openPassword){
