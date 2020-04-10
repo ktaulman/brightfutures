@@ -2,8 +2,7 @@
 import React,{useState,useEffect} from 'react';
 //React Router (SPA)
 import {Route, Link,useRouteMatch,NavLink} from "react-router-dom";
-//Contentful input 
-import Input from './Input'
+
 //components
 import TextSection from '../components/TextSection/TextSection';
 import Spacer from '../components/Spacer/Spacer';
@@ -93,47 +92,31 @@ function DisplayMissionStatement (){
 }
 
 function DisplayFeatureCard(){
-     //set FeatureCard 
-     const[background,setBackground]=useState(null);
+    //
+    const [contentState,setContentState]=useState(null);
 
-     const[title,setTitle]=useState(null);
-     const[titleColor,setTitleColor]=useState(null);
 
-     const[caption,setCaption]=useState(null);
-     const[captionColor,setCaptionColor]=useState(null);
-
-     const[details,setDetails]=useState(null);
-     const[detailsColor,setDetailsColor]=useState(null);
-    
-
-     const[buttonOneLabel,setButtonOneLabel]=useState(null);
-     const[buttonOneColor,setButtonOneColor]=useState(null)
-     const[buttonOneBackground,setButtonOneBackground]=useState(null);
-
-     const[buttonTwoLabel,setButtonTwoLabel]=useState(null);
-     const[buttonTwoColor,setButtonTwoColor]=useState(null);
-     const[buttonTwoBackground,setButtonTwoBackground]=useState(null)
-
-     const[buttonTwoURL,setButtonTwoURL]=useState(null)
+useEffect(()=>{
     contentPreview.getEntry("XfArvtJCRzAdQzyZgIWbv").then(res=>{
-        console.log(res.fields)
-        const {title,titleColor,caption,captionColor,detailsColor,buttonOneLabel,buttonOneColor,buttonTwoLabel,buttonTwoColor,buttonTwoURL}= res.fields;
-        setBackground(res.fields.backgroundImage.fields.file.url)
-        setTitle(title);
-        setTitleColor(titleColor);
-        setCaption(caption);
-        setCaptionColor(captionColor);
-        setDetails(details);
-        setDetailsColor(detailsColor);
-        setButtonOneLabel(buttonOneLabel);
-        setButtonOneColor(buttonOneColor);
-        setButtonTwoLabel(buttonTwoLabel);
-        setButtonTwoColor(buttonTwoColor)
-        setButtonTwoURL(buttonTwoURL);
+        setContentState(res.fields)
     })
+    },[])
+   
+    //RENDERING
+    //if loading
+    if(!contentState) return <div>Loading...</div>
+    
+    
+    //default view,properly rendered 
+    //
+    //desconstruct properties
+    const {title,titleColor,caption,captionColor,details,detailsColor,backgroundImage,buttonOneLabel,buttonOneColor,buttonOneBackground,buttonOneURL,buttonTwoLabel,buttonTwoColor,buttonTwoBackground,buttonTwoURL}=contentState;
+    console.log(contentState)
+
     return(
+        
         <FeatureCard
-        backgroundImageURL={background}
+        backgroundImageURL={backgroundImage.fields.file.url}
         title={title}
         titleColor={titleColor}
         caption={caption}
@@ -143,14 +126,14 @@ function DisplayFeatureCard(){
 
         buttonsArray={[
             {
-                textColor:'#FFFFFF',
-                backgroundColor:buttonOneColor||'rgb(172, 149, 98)',
+                textColor:buttonOneColor||'#FFFFFF',
+                backgroundColor:buttonOneBackground||'rgb(172, 149, 98)',
                 label:buttonOneLabel,
-                handleClick:()=>window.open("https://www.eventbrite.com/e/2020-camp-preparing-our-girls-for-center-stage-tickets-100295540662?ref=elink",'_blank'),
+                handleClick:()=>window.open(buttonOneURL),
             },
             {
-                textColor:'#000000',
-                backgroundColor:buttonTwoColor||'#62AC9A',
+                textColor:buttonTwoColor||'#000000',
+                backgroundColor:buttonTwoBackground||'#62AC9A',
                 label:buttonTwoLabel,
                 handleClick:()=>window.open(buttonTwoURL,'_blank')
             }
@@ -164,32 +147,39 @@ function DisplaySocialMediaLinks(){
         const twitterSVG=require('../components/SocialLinks/twitter.svg') ;
         const instagramSVG=require('../components/SocialLinks/instagram.svg')
         const facebookSVG=require('../components/SocialLinks/facebook.svg');
-     //set socialMediaLinks
-     const [twitter,setTwitterUrl]=useState(null);
-     const [facebook,setFacebookUrl]=useState(null);
-     const [instagram,setInstagramUrl]=useState(null);
+    //
+    const [contentState,setContentState]=useState(null)
+
     useEffect(()=>{
         contentPreview.getEntry('2mSBA7L23BOJyXJwUuF4I').then(res=>{
-           const{twitterUrl, facebookUrl,instagramUrl }=res.fields;
-           setTwitterUrl(twitterUrl)
-           setFacebookUrl(facebookUrl)
-           setInstagramUrl(instagramUrl)
+            console.log(res.fields)
+            setContentState(res.fields)
        })
     })
+    
+    //Rendering 
+    //
+    //if state not loaded.
+    if(!contentState) return (<div>...Loading</div>)
+    
+    //Default Rendering
+    //destructure state
+    const {title,titleColor,twitterURL,facebookURL,instagramURL}=contentState;
     return(
         <SocialLinks
-            label='Get Connected'
+            title={title}
+            titleColor={titleColor}
             iconsArray={[
                 {
-                    href:twitter,
+                    href:twitterURL,
                     svg:twitterSVG
                 },
                 {
-                    href:facebook,
+                    href:facebookURL,
                     svg:facebookSVG
                 },
                 {
-                    href:instagram,
+                    href:instagramURL,
                     svg:instagramSVG
                 }
             ]}
@@ -270,10 +260,10 @@ function PreviewNav(){
         
         <Link  className={'Preview__link'}to={url}>Home</Link>
         <Link className={'Preview__link'} to={url+"/3NsR5rAC9LfDlmWyTrmJpq"}>Logo</Link>
-        <Link  className={'Preview__link'}to={url+'/topNavBar'}>topNavBar</Link>
+        
         <Link  className={'Preview__link'}to={url+'/6XkSCISzGt8d0R5ubciAwA'}>MissionStatement</Link>
-        <Link  className={'Preview__link'}to={url+'/banner'}>Home Page Banner</Link>
-        <Link  className={'Preview__link'}to={url+'/socialMediaLinks'}>socialMediaLinks</Link>
+        <Link  className={'Preview__link'}to={url+'/XfArvtJCRzAdQzyZgIWbv'}>Home Page Banner</Link>
+        <Link  className={'Preview__link'}to={url+'/2mSBA7L23BOJyXJwUuF4I'}>socialMediaLinks</Link>
         <Link  className={'Preview__link'}to={url+'/4MRX3nqYjh3A3EbRNSIPxk'}>contactInformation</Link>
     </nav>
     <Spacer height={topNavHeight}/>
@@ -383,22 +373,18 @@ export default function Preview(){
                 <DisplayLogo />
         </Route>
 
-        <Route path={path+'/topNavBar'}>
-                <h1>Content Type:topNavBar</h1> 
-               
-        </Route>
 
         <Route path={path+'/6XkSCISzGt8d0R5ubciAwA'}>
                  <h1>Content Type: MissionStatement</h1> 
                 <DisplayMissionStatement/>
             </Route>
 
-        <Route path={path+'/banner'}>
+        <Route path={path+'/XfArvtJCRzAdQzyZgIWbv'}>
                 <h1>Content Type:Home Page Banner</h1>
                 <DisplayFeatureCard />
             </Route>
 
-        <Route path={path+'/socialMediaLinks'}>
+        <Route path={path+'/2mSBA7L23BOJyXJwUuF4I'}>
                 <h1>Content Type:Social Media LInks</h1>
                 <DisplaySocialMediaLinks/>
             </Route>

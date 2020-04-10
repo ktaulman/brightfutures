@@ -1,8 +1,12 @@
 import React from 'react';
 import './FeatureCard.css';
 
-export default function FeatureCard ({backgroundImageURL,backgroundColor,title,titleColor,caption,captionColor,details,detailsColor,buttonsArray}){
-
+export default function FeatureCard ({
+    title,titleColor,
+    caption,captionColor,
+    details, detailsColor,
+    backgroundImageURL
+    ,buttonsArray}){
     return(
         
         <section 
@@ -24,13 +28,12 @@ export default function FeatureCard ({backgroundImageURL,backgroundColor,title,t
         <div className='FeatureCard__textWrapper'>
        
 
-            <h2 className='FeatureCard__title' >{title}</h2>
-            <h3 className='FeatureCard__caption'>{caption}</h3>
-            <h3 className='FeatureCard__description'>{details}</h3>
+            <h2 style={{color:titleColor}} className='FeatureCard__title' >{title}</h2>
+            <h3 style={{color:captionColor}} className='FeatureCard__caption'>{caption}</h3>
+            <h3 style={{color:detailsColor}} className='FeatureCard__details'>{details}</h3>
         </div>
 
          <div className='FeatureCard__buttonsWrapper'>
-                
                {buttonsArray?
                     buttonsArray.map((el,i)=>{
                         return(

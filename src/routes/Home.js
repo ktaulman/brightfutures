@@ -3,7 +3,8 @@ import React,{useEffect,useState} from 'react';
 //components
 import Spacer from '../components/Spacer/Spacer';
 import TextSection from '../components/TextSection/TextSection';
-import FeatureCard from '../components/FeatureCard/FeatureCard';
+import FeatureCard from '../components/FeatureCard/FeatureCard'
+
 
 import DropDownMenu from '../components/DropDownMenu/DropDownMenu';
 import SocialLinks from '../components/SocialLinks/SocialLinks';
@@ -35,18 +36,39 @@ export default function Home({openModal}){
     //set logo
     //set navigation links 
     
+
     //set Headline
     const[title,setTitle]=useState(null);
     const[body,setBody]=useState(null);
-    //set FeatureCard 
-    const[backgroundFeatureCard,setBackgroundFeatureCard]=useState(null);
-    const[titleFeatureCard,setTitleFeatureCard]=useState(null);
-    const[captionFeatureCard,setCaptionFeatureCard]=useState(null);
-    const[detailsFeatureCard,setDetailsFeatureCard]=useState(null);
-    const[buttonOneLabelFeatureCard,setButtonOneFeatureCard]=useState(null);
-    const[buttonTwoLabelFeatureCard,setButtonTwoFeatureCard]=useState(null);
-    // const[buttonOneURLFeatureCard,setButtonOneURLFeatureCard]=useState(null);
-    // const[buttonTwoURLFeatureCard,setButtonTwoURLFeatureCard]=useState(null);
+
+    //set  Home Pager Banner
+    const [banner,setBanner]=useState({
+        title:null,
+        titleColor:null,
+        caption:null,
+        captionColor:null,
+        details:null,
+        detailsColor:null,
+        buttonOneLabel:null,
+        buttonOneURL:null,
+        buttonOneColor:null,
+        buttonOneBackground:null,
+        buttonTwoLabel:null,
+        buttonTwoURL:null,
+        buttonTwoColor:null,
+        buttonTwoBackground:null,
+        backgroundImage:null,
+    })
+    const [bannerTwo,setBannerTwo]=useState({})
+   
+
+    const[background,setBackground]=useState(null);
+    const[caption,setCaption]=useState(null);
+    const[details,setDetails]=useState(null);
+    const[buttonOneLabel,setButtonOne]=useState(null);
+    const[buttonTwoLabel,setButtonTwo]=useState(null);
+    const[buttonOneURL,setButtonOneURL]=useState(null);
+    const[buttonTwoURL,setButtonTwoURL]=useState(null);
 
     //set socialMediaLinks
     const [twitter,setTwitterUrl]=useState(null);
@@ -64,15 +86,24 @@ export default function Home({openModal}){
             setTitle(title);
             setBody(textBody)
         })
-        //featurecard
+        //
         content.getEntry("XfArvtJCRzAdQzyZgIWbv").then(res=>{
-            const {title,caption,details,buttonOneLabel,buttonTwoLabel}= res.fields;
-            setBackgroundFeatureCard(res.fields.backgroundImage.fields.file.url)
-            setTitleFeatureCard(title);
-            setCaptionFeatureCard(caption)
-            setDetailsFeatureCard(details)
-            setButtonOneFeatureCard(buttonOneLabel)
-            setButtonTwoFeatureCard(buttonTwoLabel)
+            console.log(res.fields)
+            const {title,titleColor,
+                caption,captionColor,
+                details, detailsColor,
+                buttonOneLabel,buttonOneURL, buttonOneColor,buttonOneBackground,
+                buttonTwoLabel,buttonTwoURL,buttonTwoColor, buttonTwoBackground}= res.fields;
+            
+            setBannerTwo(res.fields)
+            
+            //
+            setBackground(res.fields.backgroundImage.fields.file.url)
+            setTitle(title);
+            setCaption(caption)
+            setDetails(details)
+            setButtonOne(buttonOneLabel)
+            setButtonTwo(buttonTwoLabel)
         })
         //socialMediaLinks
         content.getEntry('2mSBA7L23BOJyXJwUuF4I').then(res=>{
@@ -114,7 +145,7 @@ function TextSectionAndDonate(){
         </>
     )
 }
-
+console.log(bannerTwo)
 return(
     <>
 
@@ -138,21 +169,21 @@ return(
                     <Spacer height='10px'/>
              
                     <FeatureCard
-                        backgroundImageURL={backgroundFeatureCard}
-                        title={titleFeatureCard}
-                        caption={captionFeatureCard}
-                        description={detailsFeatureCard}
+                        backgroundImageURL={background}
+                        title={title}
+                        caption={caption}
+                        description={details}
                         buttonsArray={[
                             {
                                 textColor:'#FFFFFF',
                                 backgroundColor:'rgb(172, 149, 98)',
-                                label:buttonOneLabelFeatureCard,
+                                label:buttonOneLabel,
                                 handleClick:openModal
                             },
                             {
                                 textColor:'#000000',
                                 backgroundColor:'#62AC9A',
-                                label:buttonTwoLabelFeatureCard,
+                                label:buttonTwoLabel,
                                 handleClick:()=>window.open("https://www.eventbrite.com/e/2020-camp-preparing-our-girls-for-center-stage-tickets-100295540662?ref=elink",'_blank'),
                                
                             }

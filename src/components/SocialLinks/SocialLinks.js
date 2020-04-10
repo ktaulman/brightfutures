@@ -2,14 +2,15 @@ import React from 'react';
 import './SocialLinks.css'
 
 
-export default function SocialLinks({label,children,iconsArray, svgColor}){
+export default function SocialLinks({title,titleColor,children,iconsArray, svgColor}){
        
       
         return (
             <div className="SocialLinks">
                 <h2 
                     className='SocialLinks__label'
-                >{label}</h2>
+                    style={{color:titleColor}}
+                >{title}</h2>
                 <div className="SocialLinks__iconsContainer">
                     {iconsArray.map((icon,index)=>{
                        return( 
