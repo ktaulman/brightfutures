@@ -3,7 +3,7 @@ import './SocialLinks.css'
 
 
 export default function SocialLinks({title,titleColor,children,iconsArray, svgColor}){
-       
+    console.log(title,titleColor)
       
         return (
             <div className="SocialLinks">

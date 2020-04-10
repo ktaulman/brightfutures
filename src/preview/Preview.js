@@ -41,7 +41,7 @@ const contentManagement=contentful_M.createClient({
 //
 //
 
-
+//MAIN DISPLAY COMPONENTS 
 function DisplayLogo(){
     const [logoURL,setLogoURL]=useState(null)
     useEffect(()=>{
@@ -64,7 +64,6 @@ function DisplayMissionStatement (){
     //set
     useEffect(()=>{
         contentPreview.getEntry('6XkSCISzGt8d0R5ubciAwA').then(res=>{
-            console.log(res.fields)
             const {title,titleColor,textBody,bodyColor}=res.fields;
             setTitle(title);
             setTitleColor(titleColor);
@@ -73,6 +72,7 @@ function DisplayMissionStatement (){
         })
 
     },[])
+
     if(title && body){
     return(
         <>
@@ -92,10 +92,10 @@ function DisplayMissionStatement (){
 }
 
 function DisplayFeatureCard(){
-    //
+    //state for component, starts null to be falsy then updates to an object.
     const [contentState,setContentState]=useState(null);
 
-
+//Load Content Preview on Mount 
 useEffect(()=>{
     contentPreview.getEntry("XfArvtJCRzAdQzyZgIWbv").then(res=>{
         setContentState(res.fields)
@@ -108,11 +108,10 @@ useEffect(()=>{
     
     
     //default view,properly rendered 
-    //
     //desconstruct properties
     const {title,titleColor,caption,captionColor,details,detailsColor,backgroundImage,buttonOneLabel,buttonOneColor,buttonOneBackground,buttonOneURL,buttonTwoLabel,buttonTwoColor,buttonTwoBackground,buttonTwoURL}=contentState;
-    console.log(contentState)
-
+    
+   
     return(
         
         <FeatureCard
@@ -129,7 +128,7 @@ useEffect(()=>{
                 textColor:buttonOneColor||'#FFFFFF',
                 backgroundColor:buttonOneBackground||'rgb(172, 149, 98)',
                 label:buttonOneLabel,
-                handleClick:()=>window.open(buttonOneURL),
+                handleClick:()=>window.open(buttonOneURL,'_blank'),
             },
             {
                 textColor:buttonTwoColor||'#000000',
@@ -155,7 +154,7 @@ function DisplaySocialMediaLinks(){
             console.log(res.fields)
             setContentState(res.fields)
        })
-    })
+    },[])
     
     //Rendering 
     //
@@ -165,6 +164,7 @@ function DisplaySocialMediaLinks(){
     //Default Rendering
     //destructure state
     const {title,titleColor,twitterURL,facebookURL,instagramURL}=contentState;
+    console.log(title,titleColor)
     return(
         <SocialLinks
             title={title}
@@ -188,27 +188,44 @@ function DisplaySocialMediaLinks(){
     )
 }
 function DisplayContactInformation(){
-    //set Contact Information
-    const [phone,setPhone]=useState(null);
-    const [email,setEmail]=useState(null);
-    const [mailing,setMailing]=useState(null);
+    const [contentState,setContentState]=useState(null)
+   
 
     //Contact Information 
-    contentPreview.getEntry("4MRX3nqYjh3A3EbRNSIPxk").then(entry=>{    
-        const{telephoneNumber,emailAddress,mailingAddress}=entry.fields;
-        setPhone(telephoneNumber);
-        setEmail(emailAddress);
-        setMailing(mailingAddress)
-    })
-
+    useEffect(()=>{
+        contentPreview.getEntry("4MRX3nqYjh3A3EbRNSIPxk").then(entry=>{    
+            setContentState(entry.fields)
+        })
+    },[])
+ 
+    
+    //RENDERING
+    //filter out before load
+    if(!contentState){
+        return <div>Loading...</div>
+    }
+    //destructure JSON data 
+    const {title,titleColor,telephoneNumber, telephoneNumberColor,emailAddress,emailAddressColor,mailingAddress, mailingAddressColor}=contentState
+    console.log(telephoneNumberColor)
     return(
         <ContactInfo 
-            phone={phone}
-            email={email}
-            mailing={mailing}
+            title={title}
+            titleColor={titleColor}
+            phone={telephoneNumber}
+            phoneColor={telephoneNumberColor}
+            email={emailAddress}
+            emailColor={emailAddressColor}
+            address={mailingAddress}
+            addressColor={mailingAddressColor}
         />
     )
 }
+
+
+
+
+
+//THIS IS THE HEADER NAVIGATION COMPONENT 
 function PreviewNav(){
 
     //VARIABLES
@@ -291,6 +308,7 @@ function PreviewNav(){
                         marginLeft:'10px'
                     }}
                 handleClick={()=>{
+                        //handle Function
                         function handleResult(res,color){
                             const DOM_result=document.querySelector('#fontPick-result')
                             DOM_result.innerHTML=res;
@@ -325,6 +343,7 @@ function PreviewNav(){
     )
 }
 
+//THIS IS THE ACTUAL FULL PAGE RENDER
 export default function Preview(){
    
     const {path}=useRouteMatch();
@@ -353,15 +372,17 @@ export default function Preview(){
                 <DisplayMissionStatement/>
                 <DisplayFeatureCard/>
                 {/* <DropDownMenu/> */}
+                
+                <DisplaySocialMediaLinks/>
                 <DisplayContactInformation/>
-
+                
                     <Footer>
                         
                         <NavLink to='/'>Home</NavLink>
                         <NavLink to='/donate'>Donate</NavLink>
                         <NavLink to='/tickets'>Tickets</NavLink>
                         <NavLink to='/aboutUs'>About</NavLink>
-                        {/* <NavigationLinks row noBackground style={{fontSize:'16px',color:'#00000'}}/> */}
+                       
                         <NavLink to='/news'>News</NavLink>
                     </Footer>
             </main>

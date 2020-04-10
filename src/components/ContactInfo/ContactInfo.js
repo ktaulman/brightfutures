@@ -5,14 +5,21 @@ import address_svg from './address.svg';
 
 import './ContactInfo.css';
 
-export default function ContactInfo({phone,email,address}){
+export default function ContactInfo({
+        title,titleColor,
+        phone,phoneColor,
+        email,emailColor,
+        address,addressColor
+    }){
+    
     return(
     <address className='ContactInfo'>
         <ul className='ContactInfo__list'>
             <h2 
                 className="ContactInfo__title"
+                style={{color:titleColor}}
             >
-                GET IN TOUCH
+                {title}
             </h2>
             <li>
             <img 
@@ -24,6 +31,7 @@ export default function ContactInfo({phone,email,address}){
             />
             <a 
             className='ContactInfo__link'
+            style={{color:phoneColor}}
             href={`tel:${phone}`}>{phone||'phone'}</a>
 
             </li>
@@ -37,6 +45,7 @@ export default function ContactInfo({phone,email,address}){
                 />
                 <a 
                 className="ContactInfo__link"
+                style={{color:emailColor}}
                 href={`mailto${email}`}>{email||'email'}</a>
             </li>
 
@@ -49,7 +58,10 @@ export default function ContactInfo({phone,email,address}){
                     alt='email'
                 />
                 <p
-                    style={{display:'inline',fontStyle:'normal'}}
+                    style={{
+                        display:'inline',fontStyle:'normal',
+                        color:addressColor
+                    }}
                 >
                     {address||'address'}
                 </p>
